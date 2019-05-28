@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LogowanieController">
+   <children>
+      <Button layoutX="140.0" layoutY="304.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Zaloguj!" textFill="#824051">
+         <font>
+            <Font size="19.0" />
+         </font></Button>
+      <TextField layoutX="115.0" layoutY="150.0" promptText="Podaj login" />
+      <PasswordField layoutX="115.0" layoutY="207.0" promptText="Podaj hasło" />
+      <Label layoutX="31.0" layoutY="42.0" prefHeight="49.0" prefWidth="340.0" text="Logowanie do bazy danych klubu fitness">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+   </children>
+</AnchorPane>
