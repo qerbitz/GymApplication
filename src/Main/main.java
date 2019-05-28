@@ -32,6 +32,7 @@ public class main extends Application {
         AnchorPane anchorPane = loader.load();
 
         Scene scene = new Scene(anchorPane);
+        
         primaryStage.setScene(scene);
         primaryStage.setTitle("Silownia");
         primaryStage.show();
