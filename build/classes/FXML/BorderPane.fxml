@@ -279,18 +279,9 @@
                                           <Font name="Georgia" size="12.0" />
                                        </font>
                                     </Label>
-                                    <Label text="Opis" GridPane.rowIndex="3">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Georgia" size="12.0" />
-                                       </font>
-                                    </Label>
                                     <TextField fx:id="text_karnet_nazwa" prefHeight="25.0" prefWidth="136.0" promptText="Nazwa" GridPane.columnIndex="1" />
                                     <TextField fx:id="text_karnet_waznosc" promptText="Waznosc" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <TextField fx:id="text_karnet_cena" promptText="Cena" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <TextField fx:id="text_karnet_opis" promptText="Opis" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                  </children>
                               </GridPane>
                               <Button fx:id="btn_karnet_zapisz" layoutX="252.0" layoutY="225.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zapisz">
@@ -312,10 +303,10 @@
                            <children>
                               <TableView fx:id="karnet_tabelka" prefHeight="621.0" prefWidth="900.0">
                                  <columns>
+                                    <TableColumn fx:id="table_karnet_id" prefWidth="225.0" text="Lp." />
                                     <TableColumn fx:id="table_karnet_nazwa" prefWidth="225.0" text="Nazwa" />
                                     <TableColumn fx:id="table_karnet_waznosc" prefWidth="225.0" text="Waznosc" />
                                     <TableColumn fx:id="table_karnet_cena" prefWidth="225.0" text="Cena" />
-                                    <TableColumn fx:id="table_karnet_opis" prefWidth="225.0" text="Opis" />
                                  </columns>
                               </TableView>
                            </children>
@@ -386,10 +377,10 @@
                            <children>
                               <TableView fx:id="produkt_tabelka" prefHeight="621.0" prefWidth="900.0">
                                  <columns>
-                                    <TableColumn fx:id="table_produkt_id" prefWidth="75.0" text="Lp." />
-                                    <TableColumn fx:id="table_produkt_nazwa" prefWidth="75.0" text="Nazwa" />
-                                    <TableColumn fx:id="table_produkt_cena" prefWidth="75.0" text="Cena" />
-                                    <TableColumn fx:id="table_produkt_stan" prefWidth="75.0" text="Stan magazynu" />
+                                    <TableColumn fx:id="table_produkt_id" prefWidth="225.0" text="Lp." />
+                                    <TableColumn fx:id="table_produkt_nazwa" prefWidth="225.0" text="Nazwa" />
+                                    <TableColumn fx:id="table_produkt_cena" prefWidth="225.0" text="Cena" />
+                                    <TableColumn fx:id="table_produkt_stan" prefWidth="225.0" text="Stan magazynu" />
                                  </columns>
                               </TableView>
                            </children>
@@ -471,10 +462,10 @@
                            <children>
                               <TableView fx:id="zamowienia_tabelka" prefHeight="621.0" prefWidth="900.0">
                                  <columns>
-                                    <TableColumn fx:id="table_zamowienia_id" prefWidth="75.0" text="Lp." />
-                                    <TableColumn fx:id="table_zamowienia_produkt" prefWidth="75.0" text="Produkt" />
-                                    <TableColumn fx:id="table_zamowienia_klient" prefWidth="75.0" text="Klient" />
-                                    <TableColumn prefWidth="106.0" text="Data kupna" />
+                                    <TableColumn fx:id="table_zamowienia_id" prefWidth="225.0" text="Lp." />
+                                    <TableColumn fx:id="table_zamowienia_produkt" prefWidth="225.0" text="Produkt" />
+                                    <TableColumn fx:id="table_zamowienia_klient" prefWidth="225.0" text="Klient" />
+                                    <TableColumn prefWidth="225.0" text="Data kupna" />
                                  </columns>
                               </TableView>
                            </children>

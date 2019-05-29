@@ -19,13 +19,18 @@ public class Karnety {
 
     private int waznosc;
 
-    private double cena;
+    private float cena;
 
-    public Karnety(int id_karnetu, String nazwa, int waznosc, double cena, String opis) {
+    public Karnety(int id_karnetu, String nazwa, int waznosc, float cena) {
         this.id_karnetu = id_karnetu;
         this.nazwa = nazwa;
         this.waznosc = waznosc;
         this.cena = cena;
+    }
+    
+    public Karnety()
+    {
+        
     }
 
     public int getId_karnetu() {
@@ -52,11 +57,11 @@ public class Karnety {
         this.waznosc = waznosc;
     }
 
-    public double getCena() {
+    public float getCena() {
         return cena;
     }
 
-    public void setCena(double cena) {
+    public void setCena(float cena) {
         this.cena = cena;
     }
 

@@ -7,6 +7,7 @@ package Controllers;
 
 import DAO.AdresyDAO;
 import DAO.JDBC_Connection;
+import DAO.KarnetyDAO;
 import DAO.Kategorie_zajecDAO;
 import DAO.KlienciDAO;
 import DAO.PersonelDAO;
@@ -57,8 +58,6 @@ public class BorderPaneController implements Initializable {
     @FXML
     public TextField text_karnet_cena;
     @FXML
-    public TextField text_karnet_opis;
-    @FXML
     public Button btn_karnet_zapisz;
     @FXML
     public Button btn_karnet_wyczysc;
@@ -69,9 +68,9 @@ public class BorderPaneController implements Initializable {
     @FXML
     public TableColumn<Karnety, Integer> table_karnet_waznosc;
     @FXML
-    public TableColumn<Karnety, Double> table_karnet_cena;
+    public TableColumn<Karnety, Float> table_karnet_cena;
     @FXML
-    public TableColumn<Karnety, String> table_karnet_opis;
+    public TableColumn<Karnety, Integer> table_karnet_id;
 
     //
     //
@@ -306,7 +305,7 @@ public class BorderPaneController implements Initializable {
     private final Kategorie_zajecDAO catDAO = new Kategorie_zajecDAO();
     private final KlienciDAO klientDAO = new KlienciDAO();
     private final PersonelDAO personelDAO = new PersonelDAO();
-
+    private final KarnetyDAO karnetDAO = new KarnetyDAO();
     /**
      * Initializes the controller class.
      *
@@ -322,7 +321,8 @@ public class BorderPaneController implements Initializable {
             table_view_kategorii();
             table_view_klienci();
             table_view_personel();
-            //table_view_personel();
+            table_view_karnety();
+            
         } catch (SQLException ex) {
             Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -439,6 +439,14 @@ public class BorderPaneController implements Initializable {
         table_personel_nazwisko.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
         table_personel_telefon.setCellValueFactory(new PropertyValueFactory<>("nr_telefonu"));
         personel_tabelka.setItems(FXCollections.observableList(personelDAO.getAll()));
+    }
+    
+    private void table_view_karnety() throws SQLException {
+        table_karnet_id.setCellValueFactory(new PropertyValueFactory<>("id_karnetu"));
+        table_karnet_nazwa.setCellValueFactory(new PropertyValueFactory<>("nazwa"));
+        table_karnet_waznosc.setCellValueFactory(new PropertyValueFactory<>("waznosc"));
+        table_karnet_cena.setCellValueFactory(new PropertyValueFactory<>("cena"));
+        karnet_tabelka.setItems(FXCollections.observableList(karnetDAO.getAll()));
     }
 
 }
