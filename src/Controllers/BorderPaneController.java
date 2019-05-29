@@ -6,12 +6,14 @@
 package Controllers;
 
 import DAO.AdresyDAO;
+import DAO.CzlonkostwaDAO;
 import DAO.JDBC_Connection;
 import DAO.KarnetyDAO;
 import DAO.Kategorie_zajecDAO;
 import DAO.KlienciDAO;
 import DAO.PersonelDAO;
 import Models.Adresy;
+import Models.Czlonkostwa;
 import Models.Karnety;
 import Models.Kategorie_zajec;
 import Models.Klienci;
@@ -24,10 +26,13 @@ import javafx.event.EventHandler;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,6 +43,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.StringConverter;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -48,29 +54,27 @@ import org.hibernate.Transaction;
  */
 public class BorderPaneController implements Initializable {
 
-    
-
     //Zakladka Karnety
     @FXML
-    public TextField text_karnet_nazwa;
+    private TextField text_karnet_nazwa;
     @FXML
-    public TextField text_karnet_waznosc;
+    private TextField text_karnet_waznosc;
     @FXML
-    public TextField text_karnet_cena;
+    private TextField text_karnet_cena;
     @FXML
-    public Button btn_karnet_zapisz;
+    private Button btn_karnet_zapisz;
     @FXML
-    public Button btn_karnet_wyczysc;
+    private Button btn_karnet_wyczysc;
     @FXML
-    public TableView karnet_tabelka;
+    private TableView karnet_tabelka;
     @FXML
-    public TableColumn<Karnety, String> table_karnet_nazwa;
+    private TableColumn<Karnety, String> table_karnet_nazwa;
     @FXML
-    public TableColumn<Karnety, Integer> table_karnet_waznosc;
+    private TableColumn<Karnety, Integer> table_karnet_waznosc;
     @FXML
-    public TableColumn<Karnety, Float> table_karnet_cena;
+    private TableColumn<Karnety, Float> table_karnet_cena;
     @FXML
-    public TableColumn<Karnety, Integer> table_karnet_id;
+    private TableColumn<Karnety, Integer> table_karnet_id;
 
     //
     //
@@ -80,60 +84,60 @@ public class BorderPaneController implements Initializable {
     //
     //
     @FXML
-    public TextField text_klient_imie;
+    private TextField text_klient_imie;
     @FXML
-    public TextField text_klient_nazwisko;
+    private TextField text_klient_nazwisko;
     @FXML
-    public TextField text_klient_telefon;
+    private TextField text_klient_telefon;
     @FXML
-    public DatePicker dataur_klient;
+    private DatePicker dataur_klient;
     @FXML
-    public TextField text_klient_mail;
+    private TextField text_klient_mail;
     @FXML
-    public TextField text_klient_wojewodztwo;
+    private TextField text_klient_wojewodztwo;
     @FXML
-    public TextField text_klient_powiat;
+    private TextField text_klient_powiat;
     @FXML
-    public TextField text_klient_miejscowosc;
+    private TextField text_klient_miejscowosc;
     @FXML
-    public TextField text_klient_ulica;
+    private TextField text_klient_ulica;
     @FXML
-    public TextField text_klient_nr_domu;
+    private TextField text_klient_nr_domu;
     @FXML
-    public TextField text_klient_kod_pocztowy;
+    private TextField text_klient_kod_pocztowy;
 
     @FXML
-    public Button btn_klient_zapisz;
+    private Button btn_klient_zapisz;
     @FXML
-    public Button btn_klient_wyczysc;
+    private Button btn_klient_wyczysc;
 
     @FXML
-    public TableView klient_tabelka;
+    private TableView klient_tabelka;
 
     @FXML
-    public TableColumn<Klienci, Integer> table_klient_id;
+    private TableColumn<Klienci, Integer> table_klient_id;
     @FXML
-    public TableColumn<Klienci, String> table_klient_imie;
+    private TableColumn<Klienci, String> table_klient_imie;
     @FXML
-    public TableColumn<Klienci, String> table_klient_nazwisko;
+    private TableColumn<Klienci, String> table_klient_nazwisko;
     @FXML
-    public TableColumn<Klienci, String> table_klient_telefon;
+    private TableColumn<Klienci, String> table_klient_telefon;
     @FXML
-    public TableColumn<Klienci, Date> table_klient_dataur;
+    private TableColumn<Klienci, Date> table_klient_dataur;
     @FXML
-    public TableColumn<Klienci, String> table_klient_mail;
+    private TableColumn<Klienci, String> table_klient_mail;
     @FXML
-    public TableColumn<Klienci, String> table_klient_powiat;
+    private TableColumn<Klienci, String> table_klient_powiat;
     @FXML
-    public TableColumn<Klienci, String> table_klient_wojewodztwo;
+    private TableColumn<Klienci, String> table_klient_wojewodztwo;
     @FXML
-    public TableColumn<Klienci, String> table_klient_miejscowosc;
+    private TableColumn<Klienci, String> table_klient_miejscowosc;
     @FXML
-    public TableColumn<Klienci, String> table_klient_nr_domu;
+    private TableColumn<Klienci, String> table_klient_nr_domu;
     @FXML
-    public TableColumn<Klienci, String> table_klient_ulica;
+    private TableColumn<Klienci, String> table_klient_ulica;
     @FXML
-    public TableColumn<Klienci, String> table_klient_kod_pocztowy;
+    private TableColumn<Klienci, String> table_klient_kod_pocztowy;
 
     //
     //
@@ -143,47 +147,47 @@ public class BorderPaneController implements Initializable {
     //
     //
     @FXML
-    public TextField text_personel_imie;
+    private TextField text_personel_imie;
     @FXML
-    public TextField text_personel_nazwisko;
+    private TextField text_personel_nazwisko;
     @FXML
-    public TextField text_personel_telefon;
+    private TextField text_personel_telefon;
     @FXML
-    public TextField text_personel_funkcja;
+    private TextField text_personel_funkcja;
     @FXML
-    public DatePicker dataur_personel;
+    private DatePicker dataur_personel;
     @FXML
-    public TextField text_personel_mail;
+    private TextField text_personel_mail;
     @FXML
-    public TextField text_personel_wojewodztwo;
+    private TextField text_personel_wojewodztwo;
     @FXML
-    public TextField text_personelt_powiat;
+    private TextField text_personelt_powiat;
     @FXML
-    public TextField text_personel_miejscowosc;
+    private TextField text_personel_miejscowosc;
     @FXML
-    public TextField text_personel_ulica;
+    private TextField text_personel_ulica;
     @FXML
-    public TextField text_personel_nr_domu;
+    private TextField text_personel_nr_domu;
     @FXML
-    public TextField text_personel_kod_pocztowy;
+    private TextField text_personel_kod_pocztowy;
 
     @FXML
-    public Button btn_personel_zapisz;
+    private Button btn_personel_zapisz;
     @FXML
-    public Button btn_personel_wyczysc;
+    private Button btn_personel_wyczysc;
 
     @FXML
-    public TableView personel_tabelka;
+    private TableView personel_tabelka;
     @FXML
-    public TableColumn<Personel, String> table_personel_imie;
+    private TableColumn<Personel, String> table_personel_imie;
     @FXML
-    public TableColumn<Personel, String> table_personel_nazwisko;
+    private TableColumn<Personel, String> table_personel_nazwisko;
     @FXML
-    public TableColumn<Personel, String> table_personel_telefon;
+    private TableColumn<Personel, String> table_personel_telefon;
     @FXML
-    public TableColumn<Personel, Date> table_personel_dataur;
+    private TableColumn<Personel, Date> table_personel_dataur;
     @FXML
-    public TableColumn<Personel, String> table_personel_mail;
+    private TableColumn<Personel, String> table_personel_mail;
 
     //
     //
@@ -193,25 +197,25 @@ public class BorderPaneController implements Initializable {
     //
     //
     @FXML
-    public TextField text_produkt_nazwa;
+    private TextField text_produkt_nazwa;
     @FXML
-    public TextField text_produkt_cena;
+    private TextField text_produkt_cena;
     @FXML
-    public TextField text_produkt_stan;
+    private TextField text_produkt_stan;
 
     @FXML
-    public Button btn_produkt_zapisz;
+    private Button btn_produkt_zapisz;
     @FXML
-    public Button btn_produkt_wyczysc;
+    private Button btn_produkt_wyczysc;
 
     @FXML
-    public TableView produkt_tabelka;
+    private TableView produkt_tabelka;
     @FXML
-    public TableColumn<Produkty, String> table_produkt_nazwa;
+    private TableColumn<Produkty, String> table_produkt_nazwa;
     @FXML
-    public TableColumn<Produkty, Double> table_produkt_cena;
+    private TableColumn<Produkty, Double> table_produkt_cena;
     @FXML
-    public TableColumn<Produkty, Integer> table_produkt_stan;
+    private TableColumn<Produkty, Integer> table_produkt_stan;
     //
     //
     //
@@ -220,27 +224,27 @@ public class BorderPaneController implements Initializable {
     //
     //
     @FXML
-    public TextField text_zajecia_nazwa;
+    private TextField text_zajecia_nazwa;
     @FXML
-    public TextField text_zajecia_rodzaj;
+    private TextField text_zajecia_rodzaj;
     @FXML
-    public TextField text_zajecia_opis;
+    private TextField text_zajecia_opis;
 
     @FXML
-    public Button btn_zajecia_zapisz;
+    private Button btn_zajecia_zapisz;
     @FXML
-    public Button btn_zajecia_wyczysc;
+    private Button btn_zajecia_wyczysc;
 
     @FXML
-    public TableView zajecia_tabelka;
+    private TableView zajecia_tabelka;
     @FXML
-    public TableColumn<Kategorie_zajec, String> table_zajecia_id;
+    private TableColumn<Kategorie_zajec, String> table_zajecia_id;
     @FXML
-    public TableColumn<Kategorie_zajec, String> table_zajecia_nazwa;
+    private TableColumn<Kategorie_zajec, String> table_zajecia_nazwa;
     @FXML
-    public TableColumn<Kategorie_zajec, String> table_zajecia_rodzaj;
+    private TableColumn<Kategorie_zajec, String> table_zajecia_rodzaj;
     @FXML
-    public TableColumn<Kategorie_zajec, String> table_zajecia_opis;
+    private TableColumn<Kategorie_zajec, String> table_zajecia_opis;
     //
     //
     //
@@ -249,27 +253,27 @@ public class BorderPaneController implements Initializable {
     //
     //
     @FXML
-    public ChoiceBox choice_zamowienia_produkt;
+    private ChoiceBox choice_zamowienia_produkt;
     @FXML
-    public ChoiceBox choice_zamowienia_klient;
+    private ChoiceBox<Klienci> choice_zamowienia_klient;
     @FXML
-    public DatePicker data_zamowienia;
+    private DatePicker data_zamowienia;
 
     @FXML
-    public Button btn_zamowienia_zapisz;
+    private Button btn_zamowienia_zapisz;
     @FXML
-    public Button btn_zamowienia_wyczysc;
+    private Button btn_zamowienia_wyczysc;
 
     @FXML
-    public TableView zamowienia_tabelka;
+    private TableView zamowienia_tabelka;
     @FXML
-    public TableColumn<Zamowienia, Klienci> table_zamowienia_klient;
+    private TableColumn<Zamowienia, Klienci> table_zamowienia_klient;
     @FXML
-    public TableColumn<Zamowienia, Produkty> table_zamowienia_produkt;
+    private TableColumn<Zamowienia, Produkty> table_zamowienia_produkt;
     @FXML
-    public TableColumn<Zamowienia, Date> table_zamowienia_data;
+    private TableColumn<Zamowienia, Date> table_zamowienia_data;
     @FXML
-    public TableColumn<Zamowienia, Integer> table_zamowienia_ilosc;
+    private TableColumn<Zamowienia, Integer> table_zamowienia_ilosc;
     //
     //
     //
@@ -278,34 +282,40 @@ public class BorderPaneController implements Initializable {
     //
     //
     @FXML
-    public ChoiceBox choice_czlonkostwo_karnet;
+    private ChoiceBox<Karnety> choice_czlonkostwo_karnet;
     @FXML
-    public ChoiceBox choice_czlonkostwo_klient;
+    private ChoiceBox<Klienci> choice_czlonkostwo_klient;
     @FXML
-    public DatePicker dataod_czlonkostwo;
+    private DatePicker dataod_czlonkostwo;
     @FXML
-    public DatePicker datado_czlonkostwo;
+    private DatePicker datado_czlonkostwo;
 
     @FXML
-    public Button btn_czlonkostwo_zapisz;
+    private Button btn_czlonkostwo_zapisz;
     @FXML
-    public Button btn_czlonkostwo_wyczysc;
+    private Button btn_czlonkostwo_wyczysc;
 
     @FXML
-    public TableView czlonkostwo_tabelka;
+    private TableView czlonkostwo_tabelka;
     @FXML
-    public TableColumn<Zamowienia, Karnety> table_czlonkostwo_karnet;
+    private TableColumn<Czlonkostwa, Integer> table_czlonkostwo_id;
     @FXML
-    public TableColumn<Zamowienia, Klienci> table_czlonkostwo_klient;
+    private TableColumn<Czlonkostwa, String> table_czlonkostwo_karnet = new TableColumn<>("karnet");
     @FXML
-    public TableColumn<Zamowienia, Date> table_czlonkostwo_dataod;
+    private TableColumn<Czlonkostwa, String> table_czlonkostwo_imie = new TableColumn<>("klient");
     @FXML
-    public TableColumn<Zamowienia, Date> table_czlonkostwo_datado;
+    private TableColumn<Czlonkostwa, String> table_czlonkostwo_nazwisko = new TableColumn<>("klient");
+    @FXML
+    private TableColumn<Czlonkostwa, Date> table_czlonkostwo_dataod;
+    @FXML
+    private TableColumn<Czlonkostwa, Date> table_czlonkostwo_datado;
 
     private final Kategorie_zajecDAO catDAO = new Kategorie_zajecDAO();
     private final KlienciDAO klientDAO = new KlienciDAO();
     private final PersonelDAO personelDAO = new PersonelDAO();
     private final KarnetyDAO karnetDAO = new KarnetyDAO();
+    private final CzlonkostwaDAO czlonkostwaDAO = new CzlonkostwaDAO();
+
     /**
      * Initializes the controller class.
      *
@@ -318,11 +328,12 @@ public class BorderPaneController implements Initializable {
         try {
             // TODO
 
-            table_view_kategorii();
-            table_view_klienci();
-            table_view_personel();
-            table_view_karnety();
-            
+            table_view_kategorii();     //wyswietlanie table_view
+            table_view_klienci();       //wyswietlanie table_view
+            table_view_personel();      //wyswietlanie table_view
+            table_view_karnety();       //wyswietlanie table_view
+            table_view_czlonkostwa();
+
         } catch (SQLException ex) {
             Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -334,6 +345,7 @@ public class BorderPaneController implements Initializable {
             klient.setImie(text_klient_imie.getText());
             klient.setNazwisko(text_klient_nazwisko.getText());
             klient.setNr_telefonu(text_klient_telefon.getText());
+            klient.setData_urodzenia(dataur_klient.getValue().toString());
 
             Adresy adres = new Adresy();
             adres.setPowiat(text_klient_powiat.getText());
@@ -361,12 +373,11 @@ public class BorderPaneController implements Initializable {
             Adresy adres = new Adresy();
             try {
                 AdresyDAO.create(adres);
-                PersonelDAO.create(pracownik); 
+                PersonelDAO.create(pracownik);
                 table_view_personel();
             } catch (SQLException ex) {
                 Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
 
         });
 
@@ -403,6 +414,17 @@ public class BorderPaneController implements Initializable {
         btn_czlonkostwo_zapisz.setOnAction((ActionEvent event) -> {
             System.out.println("czlonkostwo");
 
+            Czlonkostwa czlonkostwo = new Czlonkostwa();
+
+            czlonkostwo.setKarnet(choice_czlonkostwo_karnet.getValue());
+            czlonkostwo.setKlient(choice_czlonkostwo_klient.getValue());
+            try {
+                CzlonkostwaDAO.create(czlonkostwo);
+                table_view_czlonkostwa();
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         });
 
         btn_zamowienia_zapisz.setOnAction((ActionEvent event) -> {
@@ -425,9 +447,10 @@ public class BorderPaneController implements Initializable {
         table_klient_imie.setCellValueFactory(new PropertyValueFactory<>("imie"));
         table_klient_nazwisko.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
         table_klient_telefon.setCellValueFactory(new PropertyValueFactory<>("nr_telefonu"));
-        table_klient_wojewodztwo.setCellValueFactory(new PropertyValueFactory<>("wojewodztwo"));   
-        table_klient_powiat.setCellValueFactory(new PropertyValueFactory<>("powiat"));   
-        table_klient_miejscowosc.setCellValueFactory(new PropertyValueFactory<>("miejscowosc"));   
+        table_klient_dataur.setCellValueFactory(new PropertyValueFactory<>("data_urodzenia"));
+        table_klient_wojewodztwo.setCellValueFactory(new PropertyValueFactory<>("wojewodztwo"));
+        table_klient_powiat.setCellValueFactory(new PropertyValueFactory<>("powiat"));
+        table_klient_miejscowosc.setCellValueFactory(new PropertyValueFactory<>("miejscowosc"));
         //table_klient_powiat.setCellValueFactory(new PropertyValueFactory<>("nr_domu"));
         //table_klient_powiat.setCellValueFactory(new PropertyValueFactory<>("ulica"));           
         klient_tabelka.setItems(FXCollections.observableList(klientDAO.getAll()));
@@ -440,13 +463,48 @@ public class BorderPaneController implements Initializable {
         table_personel_telefon.setCellValueFactory(new PropertyValueFactory<>("nr_telefonu"));
         personel_tabelka.setItems(FXCollections.observableList(personelDAO.getAll()));
     }
-    
+
     private void table_view_karnety() throws SQLException {
         table_karnet_id.setCellValueFactory(new PropertyValueFactory<>("id_karnetu"));
         table_karnet_nazwa.setCellValueFactory(new PropertyValueFactory<>("nazwa"));
         table_karnet_waznosc.setCellValueFactory(new PropertyValueFactory<>("waznosc"));
         table_karnet_cena.setCellValueFactory(new PropertyValueFactory<>("cena"));
         karnet_tabelka.setItems(FXCollections.observableList(karnetDAO.getAll()));
+    }
+
+    private void table_view_czlonkostwa() throws SQLException {
+
+        choice_czlonkostwo_karnet.setConverter(new StringConverter<Karnety>() {
+            @Override
+            public String toString(Karnety object) {
+                return object.getNazwa();
+            }
+
+            @Override
+            public Karnety fromString(String string) {
+                return null;
+            }
+
+        });
+        choice_czlonkostwo_klient.setConverter(new StringConverter<Klienci>() {
+            @Override
+            public String toString(Klienci object) {
+                return object.getImie() + " " + object.getNazwisko();
+            }
+
+            @Override
+            public Klienci fromString(String string) {
+                return null;
+            }
+
+        });
+        choice_czlonkostwo_klient.setItems(FXCollections.observableArrayList(klientDAO.getAll()));
+        choice_czlonkostwo_karnet.setItems(FXCollections.observableArrayList(karnetDAO.getAll()));
+        table_czlonkostwo_id.setCellValueFactory(new PropertyValueFactory<>("id_czlonkostwa"));
+        table_czlonkostwo_imie.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getKlient().getImie()));
+        table_czlonkostwo_nazwisko.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getKlient().getNazwisko()));
+        table_czlonkostwo_karnet.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getKarnet().getNazwa()));      
+        czlonkostwo_tabelka.setItems(FXCollections.observableList(czlonkostwaDAO.getAll()));
     }
 
 }

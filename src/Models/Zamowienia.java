@@ -80,6 +80,10 @@ public class Zamowienia {
     public void setIlosc(int ilosc) {
         this.ilosc = ilosc;
     }
+
+    public Object getKarnet() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

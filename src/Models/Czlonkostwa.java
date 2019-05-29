@@ -15,9 +15,9 @@ public class Czlonkostwa {
     
     private int id_czlonkostwa;
     
-    private Karnety karnet;
+    public Karnety karnet;
     
-    private Klienci klient;
+    public Klienci klient;
     
     private Date data_rozpoczecia;
     
@@ -76,6 +76,6 @@ public class Czlonkostwa {
         this.data_zakonczenia = data_zakonczenia;
     }
     
-    
+   
     
 }
