@@ -678,26 +678,8 @@
                                           <Font name="Georgia" size="12.0" />
                                        </font>
                                     </Label>
-                                    <Label text="Data rozpoczęcia" GridPane.rowIndex="2">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Georgia" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Data zakonczenia" GridPane.rowIndex="3">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Georgia" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <DatePicker fx:id="datado_czlonkostwo" prefHeight="25.0" prefWidth="185.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <ChoiceBox fx:id="choice_czlonkostwo_karnet" prefHeight="31.0" prefWidth="187.0" GridPane.columnIndex="1" />
                                     <ChoiceBox fx:id="choice_czlonkostwo_klient" prefHeight="31.0" prefWidth="189.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <DatePicker fx:id="dataod_czlonkostwo" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                  </children>
                               </GridPane>
                               <Button fx:id="btn_czlonkostwo_zapisz" layoutX="196.0" layoutY="252.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zapisz">

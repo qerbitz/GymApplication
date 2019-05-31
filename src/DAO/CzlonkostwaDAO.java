@@ -36,6 +36,8 @@ public class CzlonkostwaDAO {
         while (rs.next()) {
             Czlonkostwa czlonkostwo = new Czlonkostwa();
             int id_czlonkostwa = rs.getInt("id_czlonkostwa");
+            Date data_rozpoczecia = rs.getDate("data_rozpoczecia");
+            Date data_zakonczenia = rs.getDate("data_zakonczenia");
                         
             Karnety karnet = new Karnety();
             int id_karnetu = rs.getInt("id_karnetu");
@@ -51,8 +53,9 @@ public class CzlonkostwaDAO {
            
             czlonkostwo.setId_czlonkostwa(id_czlonkostwa);            
             czlonkostwo.setKarnet(karnet);
-            //czlonkostwo.setKlient(klient);
             czlonkostwo.setKlient(klient);
+            czlonkostwo.setData_rozpoczecia(data_rozpoczecia);
+            czlonkostwo.setData_zakonczenia(data_zakonczenia);
 
 
             list.add(czlonkostwo);
@@ -68,18 +71,17 @@ public class CzlonkostwaDAO {
         CallableStatement stmt = null;
 
         con = JDBC_Connection.getConnections();
-        stmt = con.prepareCall("{call insertCZLONKOSTWA(?,?)}");
-        //stmt.setInt(1, cz.getKarnet().);
-        //stmt.setString(2, cz.getNazwisko());
-        //stmt.setDate(3, (Date) cz.getData_rozpoczecia());
-        //stmt.setDate(4, (Date) cz.getData_zakonczenia());
+        stmt = con.prepareCall("{call insertCZLONKOSTWA(?,?,?,?)}");
+        
         stmt.setInt(1, cz.karnet.getId_karnetu());
         stmt.setInt(2, cz.klient.getId_klienta());
+        stmt.setDate(3, (Date) cz.getData_rozpoczecia());
+        stmt.setDate(4, (Date) cz.getData_zakonczenia());
 
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
         stmt.registerOutParameter(2, java.sql.Types.INTEGER);
-        //stmt.registerOutParameter(3, java.sql.Types.DATE);
-        //stmt.registerOutParameter(4, java.sql.Types.DATE);
+        stmt.registerOutParameter(3, java.sql.Types.DATE);
+        stmt.registerOutParameter(4, java.sql.Types.DATE);
 
         stmt.executeUpdate();
     }

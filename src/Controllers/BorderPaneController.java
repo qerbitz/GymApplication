@@ -25,12 +25,15 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import static java.time.temporal.TemporalQueries.localDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -423,19 +426,40 @@ public class BorderPaneController implements Initializable {
             System.out.println("czlonkostwo");
 
             Czlonkostwa czlonkostwo = new Czlonkostwa();
-
-            //LocalDate localDate = dataur_klient.getValue();
-            //Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            
-            java.util.Date d = new java.util.Date();          
-            java.sql.Date sd = new java.sql.Date(d.getTime());
-            
             czlonkostwo.setKarnet(choice_czlonkostwo_karnet.getValue());
+
+            int ile_dodac = czlonkostwo.getKarnet().getWaznosc();
+            System.out.println(ile_dodac);
+
+            Date d = new Date();          
+            java.sql.Date sqlactualDate = new java.sql.Date(d.getTime());
+            
+       
+            Date dt = new Date();
+            Calendar c = Calendar.getInstance();
+            c.setTime(dt);
+            c.add(Calendar.DATE,ile_dodac);
+            dt = c.getTime();
+            
+            java.sql.Date sqlendDate = new java.sql.Date(dt.getTime());
+            
+            if(d.getTime()>dt.getTime())
+            {
+                System.out.println("wieksza");
+            }
+            else
+            {
+                System.out.println("mniejsza");
+            }
+
             czlonkostwo.setKlient(choice_czlonkostwo_klient.getValue());
-            czlonkostwo.setData_rozpoczecia(sd);
+            czlonkostwo.setData_rozpoczecia(sqlactualDate);
+            czlonkostwo.setData_zakonczenia(sqlendDate);
+
+            System.out.println(sqlendDate);
             
             try {
-                CzlonkostwaDAO.create(czlonkostwo);
+                //CzlonkostwaDAO.create(czlonkostwo);
                 table_view_czlonkostwa();
             } catch (SQLException ex) {
                 Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
@@ -449,6 +473,7 @@ public class BorderPaneController implements Initializable {
         });
 
     }
+
 
     private void table_view_kategorii() throws SQLException {
         table_zajecia_id.setCellValueFactory(new PropertyValueFactory<>("id_zajec"));
@@ -520,6 +545,8 @@ public class BorderPaneController implements Initializable {
         table_czlonkostwo_imie.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getKlient().getImie()));
         table_czlonkostwo_nazwisko.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getKlient().getNazwisko()));
         table_czlonkostwo_karnet.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getKarnet().getNazwa()));
+        table_czlonkostwo_dataod.setCellValueFactory(new PropertyValueFactory<>("data_rozpoczecia"));
+        table_czlonkostwo_datado.setCellValueFactory(new PropertyValueFactory<>("data_zakonczenia"));
         czlonkostwo_tabelka.setItems(FXCollections.observableList(czlonkostwaDAO.getAll()));
     }
 
