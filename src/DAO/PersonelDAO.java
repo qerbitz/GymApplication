@@ -40,13 +40,22 @@ public class PersonelDAO {
             String nazwisko = rs.getString("nazwisko");
             String funkcja = rs.getString("funkcja");
             String nr_telefonu = rs.getString("nr_telefonu");
+            Date data_urodzenia = rs.getDate("data_urodzenia");
             
-            String powiat = rs.getString("powiat");
-            String miejscowosc = rs.getString("miejscowosc");
-            String ulica = rs.getString("ulica");
+            Adresy adres2 = new Adresy();
             String wojewodztwo = rs.getString("wojewodztwo");
             String kod_pocztowy = rs.getString("kod_pocztowy");
             String nr_domu = rs.getString("nr_domu");
+            String miejscowosc = rs.getString("miejscowosc");
+            String powiat = rs.getString("powiat");
+            String ulica = rs.getString("ulica");
+            adres2.setWojewodztwo(wojewodztwo);
+            adres2.setPowiat(powiat);
+            adres2.setMiejscowosc(miejscowosc);
+            adres2.setNr_domu(nr_domu);
+            adres2.setWojewodztwo(wojewodztwo);
+            adres2.setUlica(ulica);
+            adres2.setKod_pocztowy(kod_pocztowy);
             
 
             pracownik.setId_pracownika(id_pracownika);
@@ -54,13 +63,8 @@ public class PersonelDAO {
             pracownik.setNazwisko(nazwisko);
             pracownik.setFunkcja(funkcja);
             pracownik.setNr_telefonu(nr_telefonu);
-            
-            pracownik.setPowiat(powiat);
-            pracownik.setMiejscowosc(miejscowosc);
-            pracownik.setNr_domu(nr_domu);
-            pracownik.setWojewodztwo(wojewodztwo);
-            pracownik.setUlica(ulica);
-            pracownik.setKod_pocztowy(kod_pocztowy);
+            pracownik.setData_urodzenia(data_urodzenia);
+            pracownik.setAdres(adres2);
 
             
 

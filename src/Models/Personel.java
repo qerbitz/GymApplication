@@ -17,7 +17,7 @@ public class Personel extends Adresy{
 
     private int id_pracownika;
 
-    private int id_adresu;
+    private Adresy adres;
 
     private String imie;
 
@@ -28,10 +28,10 @@ public class Personel extends Adresy{
     private String funkcja;
 
     private String nr_telefonu;
+    
 
     public Personel(int id_pracownika, int id_adresu, String imie, String nazwisko, Date data_urodzenia, String funkcja, String nr_telefonu) {
-        this.id_pracownika = id_pracownika;
-        this.id_adresu = id_adresu;
+        this.id_pracownika = id_pracownika;      
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.data_urodzenia = data_urodzenia;
@@ -43,20 +43,22 @@ public class Personel extends Adresy{
 
     }
 
+    public Adresy getAdres() {
+        return adres;
+    }
+
+    public void setAdres(Adresy adres) {
+        this.adres = adres;
+    }
+    
+    
+
     public int getId_pracownika() {
         return id_pracownika;
     }
 
     public void setId_pracownika(int id_pracownika) {
         this.id_pracownika = id_pracownika;
-    }
-
-    public int getId_adresu() {
-        return id_adresu;
-    }
-
-    public void setId_adresu(int id_adresu) {
-        this.id_adresu = id_adresu;
     }
 
     public String getImie() {
@@ -98,34 +100,6 @@ public class Personel extends Adresy{
     public void setNr_telefonu(String nr_telefonu) {
         this.nr_telefonu = nr_telefonu;
     }
+
     
-    @Override
-    public String getPowiat() {
-        return powiat;
-    }
-
-    @Override
-    public String getWojewodztwo() {
-        return wojewodztwo;
-    }
-
-    @Override
-    public String getMiejscowosc() {
-        return miejscowosc;
-    }
-
-    @Override
-    public String getUlica() {
-        return ulica;
-    }
-
-    @Override
-    public String getNr_domu() {
-        return nr_domu;
-    }
-
-    @Override
-    public String getKod_pocztowy() {
-        return kod_pocztowy;
-    }
 }

@@ -98,41 +98,5 @@ public class Klienci extends Adresy {
     public void setE_mail(String e_mail) {
         this.e_mail = e_mail;
     }
-
-    @Override
-    public String getPowiat() {
-        return powiat;
-    }
-
-    //@Override
-    ////public String getWojewodztwo() {
-    //    return wojewodztwo;
-    //}
-
-    @Override
-    public String getMiejscowosc() {
-        return miejscowosc;
-    }
-
-    @Override
-    public String getUlica() {
-        return ulica;
-    }
-
-    @Override
-    public String getNr_domu() {
-        return nr_domu;
-    }
-
-    @Override
-    public String getKod_pocztowy() {
-        return kod_pocztowy;
-    }
-
-    //@Override
-    //public String toString() {
-    //    return "Klienci [id_klienta=" + id_klienta + ", id_adresu= " + id_adresu + ", imie=" + imie
-    //            + ", nazwisko=" + nazwisko + ", nr_telefonu=" + nr_telefonu + ", data urodzenia" + data_urodzenia
-    //            + ", e-mail=" + e_mail + "]";
-    //}
+    
 }

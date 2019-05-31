@@ -117,9 +117,11 @@ public class BorderPaneController implements Initializable {
     private Button btn_klient_zapisz;
     @FXML
     private Button btn_klient_wyczysc;
+    @FXML
+    private Button btn_klient_update;
 
     @FXML
-    private TableView klient_tabelka;
+    private TableView<Klienci> klient_tabelka;
 
     @FXML
     private TableColumn<Klienci, Integer> table_klient_id;
@@ -134,17 +136,17 @@ public class BorderPaneController implements Initializable {
     @FXML
     private TableColumn<Klienci, String> table_klient_mail;
     @FXML
-    private TableColumn<Klienci, String> table_klient_powiat;
+    private TableColumn<Klienci, String> table_klient_powiat = new TableColumn<>("powiat");
     @FXML
-    private TableColumn<Klienci, String> table_klient_wojewodztwo;
+    private TableColumn<Klienci, String> table_klient_wojewodztwo = new TableColumn<>("kod_wojewodztwo");
     @FXML
-    private TableColumn<Klienci, String> table_klient_miejscowosc;
+    private TableColumn<Klienci, String> table_klient_miejscowosc = new TableColumn<>("kod_miejscowosc");
     @FXML
-    private TableColumn<Klienci, String> table_klient_nr_domu;
+    private TableColumn<Klienci, String> table_klient_nr_domu = new TableColumn<>("kod_nr_domu");
     @FXML
-    private TableColumn<Klienci, String> table_klient_ulica;
+    private TableColumn<Klienci, String> table_klient_ulica = new TableColumn<>("kod_ulica");
     @FXML
-    private TableColumn<Klienci, String> table_klient_kod_pocztowy;
+    private TableColumn<Klienci, String> table_klient_kod_pocztowy = new TableColumn<>("kod_pocztowy");
 
     //
     //
@@ -168,7 +170,7 @@ public class BorderPaneController implements Initializable {
     @FXML
     private TextField text_personel_wojewodztwo;
     @FXML
-    private TextField text_personelt_powiat;
+    private TextField text_personel_powiat;
     @FXML
     private TextField text_personel_miejscowosc;
     @FXML
@@ -196,19 +198,21 @@ public class BorderPaneController implements Initializable {
     @FXML
     private TableColumn<Personel, Date> table_personel_dataur;
     @FXML
-    private TableColumn<Personel, String> table_personel_mail;
+    private TableColumn<Personel, String> table_personel_funkcja;
     @FXML
-    private TableColumn<Personel, String> table_personel_powiat;
+    private TableColumn<Personel, String> table_personel_e_mail;
     @FXML
-    private TableColumn<Personel, String> table_personel_wojewodztwo = new TableColumn<> ("wojewodztwo");
+    private TableColumn<Personel, String> table_personel_powiat = new TableColumn<>("powiat");
     @FXML
-    private TableColumn<Personel, String> table_personel_miejscowosc;
+    private TableColumn<Personel, String> table_personel_wojewodztwo = new TableColumn<>("wojewodztwo");
     @FXML
-    private TableColumn<Personel, String> table_personel_nr_domu;
+    private TableColumn<Personel, String> table_personel_miejscowosc = new TableColumn<>("miejscowosc");
     @FXML
-    private TableColumn<Personel, String> table_personel_ulica;
+    private TableColumn<Personel, String> table_personel_nr_domu = new TableColumn<>("nr_domu");
     @FXML
-    private TableColumn<Personel, String> table_personel_kod_pocztowy;
+    private TableColumn<Personel, String> table_personel_ulica = new TableColumn<>("ulica");
+    @FXML
+    private TableColumn<Personel, String> table_personel_kod_pocztowy = new TableColumn<>("kod_pocztowy");
 
     //
     //
@@ -362,10 +366,10 @@ public class BorderPaneController implements Initializable {
         } catch (ParseException ex) {
             Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        btn_klient_zapisz.setOnAction((ActionEvent event) -> {                      //Klienci
-            System.out.println("klient");
-
+////////////////////////////
+//ZAPISYWANIE KLIENTA
+////////////////////////////
+        btn_klient_zapisz.setOnAction((ActionEvent event) -> {
             Klienci klient = new Klienci();
             klient.setImie(text_klient_imie.getText());
             klient.setNazwisko(text_klient_nazwisko.getText());
@@ -380,12 +384,11 @@ public class BorderPaneController implements Initializable {
 
             Adresy adres = new Adresy();
             adres.setPowiat(text_klient_powiat.getText());
-            //adres.setWojewodztwo(text_klient_wojewodztwo.getText());
+            adres.setWojewodztwo(text_klient_wojewodztwo.getText());
             adres.setMiejscowosc(text_klient_miejscowosc.getText());
             adres.setUlica(text_klient_ulica.getText());
             adres.setNr_domu(text_klient_nr_domu.getText());
             adres.setKod_pocztowy(text_klient_kod_pocztowy.getText());
-            
 
             try {
                 AdresyDAO.create(adres);
@@ -397,17 +400,54 @@ public class BorderPaneController implements Initializable {
             }
 
         });
+////////////////////////////
+//Modyfikacja klienta
+////////////////////////////      
 
-        btn_personel_zapisz.setOnAction((ActionEvent event) -> {                    //Personel
-            System.out.println("personel");
-
+        btn_klient_update.setOnAction((ActionEvent event) -> {
+            Klienci klient = new Klienci();
+            klient = klient_tabelka.getSelectionModel().getSelectedItem();
+            klient.setImie(text_klient_imie.getText());
+            klient.setNazwisko(text_klient_nazwisko.getText());
+            klient.setNr_telefonu(text_klient_telefon.getText());
+            //klient.setE_mail(text_klient_mail.getText());
+            System.out.println(klient.getId_klienta());
+            
+            
+            
+            try {
+                KlienciDAO.update(klient);
+                //klient_tabelka.setItems(FXCollections.observableList(klientDAO.getAll()));
+                table_view_klienci();
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+////////////////////////////
+//ZAPISYWANIE Personelu
+////////////////////////////
+        btn_personel_zapisz.setOnAction((ActionEvent event) -> {                   
             Personel pracownik = new Personel();
             pracownik.setImie(text_personel_imie.getText());
             pracownik.setNazwisko(text_personel_nazwisko.getText());
             pracownik.setNr_telefonu(text_personel_telefon.getText());
             pracownik.setFunkcja(text_personel_funkcja.getText());
 
+            //pozyskanie daty urodzenia
+            java.util.Date date
+                    = java.util.Date.from(dataur_personel.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+
+            pracownik.setData_urodzenia(sqlDate);
+            //
+
             Adresy adres = new Adresy();
+            adres.setPowiat(text_personel_powiat.getText());
+            adres.setWojewodztwo(text_personel_wojewodztwo.getText());
+            adres.setMiejscowosc(text_personel_miejscowosc.getText());
+            adres.setUlica(text_personel_ulica.getText());
+            adres.setNr_domu(text_personel_nr_domu.getText());
+            adres.setKod_pocztowy(text_personel_kod_pocztowy.getText());
             try {
                 AdresyDAO.create(adres);
                 PersonelDAO.create(pracownik);
@@ -417,18 +457,22 @@ public class BorderPaneController implements Initializable {
             }
 
         });
-
+////////////////////////////
+////////////////////////////
+////////////////////////////
         btn_produkt_zapisz.setOnAction((ActionEvent event) -> {
-            System.out.println("produkt");
 
         });
-
+////////////////////////////
+////////////////////////////
+////////////////////////////
         btn_zajecia_wyczysc.setOnAction((ActionEvent event) -> {
 
         });
-
+////////////////////////////
+////////////////////////////
+////////////////////////////
         btn_zajecia_zapisz.setOnAction((ActionEvent event) -> {                     //Zajecia
-            System.out.println("zajecia");
 
             Kategorie_zajec kategoria = new Kategorie_zajec();
             kategoria.setNazwa_zajec(text_zajecia_nazwa.getText());
@@ -442,14 +486,16 @@ public class BorderPaneController implements Initializable {
             }
 
         });
-
+////////////////////////////
+////////////////////////////
+////////////////////////////
         btn_karnet_zapisz.setOnAction((ActionEvent event) -> {
-            System.out.println("karnet");
 
         });
-
+////////////////////////////
+////////////////////////////
+////////////////////////////
         btn_czlonkostwo_zapisz.setOnAction((ActionEvent event) -> {                     //Czlonkostwa
-            System.out.println("czlonkostwo");
 
             Czlonkostwa czlonkostwo = new Czlonkostwa();
             czlonkostwo.setKarnet(choice_czlonkostwo_karnet.getValue());
@@ -457,24 +503,20 @@ public class BorderPaneController implements Initializable {
             int ile_dodac = czlonkostwo.getKarnet().getWaznosc();
             System.out.println(ile_dodac);
 
-            Date d = new Date();          
+            Date d = new Date();
             java.sql.Date sqlactualDate = new java.sql.Date(d.getTime());
-            
-       
+
             Date dt = new Date();
             Calendar c = Calendar.getInstance();
             c.setTime(dt);
-            c.add(Calendar.DATE,ile_dodac);
+            c.add(Calendar.DATE, ile_dodac);
             dt = c.getTime();
-            
+
             java.sql.Date sqlendDate = new java.sql.Date(dt.getTime());
-            
-            if(d.getTime()>dt.getTime())
-            {
+
+            if (d.getTime() > dt.getTime()) {
                 System.out.println("wieksza");
-            }
-            else
-            {
+            } else {
                 System.out.println("mniejsza");
             }
 
@@ -483,7 +525,7 @@ public class BorderPaneController implements Initializable {
             czlonkostwo.setData_zakonczenia(sqlendDate);
 
             System.out.println(sqlendDate);
-            
+
             try {
                 CzlonkostwaDAO.create(czlonkostwo);
                 table_view_czlonkostwa();
@@ -494,14 +536,14 @@ public class BorderPaneController implements Initializable {
             }
 
         });
-
+////////////////////////////
+////////////////////////////
+////////////////////////////
         btn_zamowienia_zapisz.setOnAction((ActionEvent event) -> {
-            System.out.println("zamowienia");
 
         });
 
     }
-
 
     private void table_view_kategorii() throws SQLException {
         table_zajecia_id.setCellValueFactory(new PropertyValueFactory<>("id_zajec"));
@@ -518,14 +560,14 @@ public class BorderPaneController implements Initializable {
         table_klient_telefon.setCellValueFactory(new PropertyValueFactory<>("nr_telefonu"));
         table_klient_dataur.setCellValueFactory(new PropertyValueFactory<>("data_urodzenia"));
         table_klient_mail.setCellValueFactory(new PropertyValueFactory<>("e_mail"));
-        
-        table_klient_wojewodztwo.setCellValueFactory(new PropertyValueFactory<>("wojewodztwo"));
+
+        table_klient_wojewodztwo.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getAdres().getWojewodztwo()));
         table_klient_miejscowosc.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getAdres().getMiejscowosc()));
-        table_klient_powiat.setCellValueFactory(new PropertyValueFactory<>("powiat"));
-        table_klient_miejscowosc.setCellValueFactory(new PropertyValueFactory<>("miejscowosc"));
-        table_klient_ulica.setCellValueFactory(new PropertyValueFactory<>("ulica"));
-        table_klient_nr_domu.setCellValueFactory(new PropertyValueFactory<>("nr_domu"));   
-        table_klient_kod_pocztowy.setCellValueFactory(new PropertyValueFactory<>("kod_pocztowy"));          
+        table_klient_powiat.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getAdres().getPowiat()));
+        table_klient_miejscowosc.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getAdres().getMiejscowosc()));
+        table_klient_ulica.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getAdres().getUlica()));
+        table_klient_nr_domu.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getAdres().getNr_domu()));
+        table_klient_kod_pocztowy.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getAdres().getKod_pocztowy()));
         klient_tabelka.setItems(FXCollections.observableList(klientDAO.getAll()));
     }
 
@@ -534,9 +576,15 @@ public class BorderPaneController implements Initializable {
         table_personel_imie.setCellValueFactory(new PropertyValueFactory<>("imie"));
         table_personel_nazwisko.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
         table_personel_telefon.setCellValueFactory(new PropertyValueFactory<>("nr_telefonu"));
-        table_personel_wojewodztwo.setCellValueFactory(new PropertyValueFactory<>("wojewodztwo"));
-        table_personel_powiat.setCellValueFactory(new PropertyValueFactory<>("powiat"));
-        //table_personel_miejscowosc.setCellValueFactory(new PropertyValueFactory<>("miejscowosc"));
+        table_personel_dataur.setCellValueFactory(new PropertyValueFactory<>("data_urodzenia"));
+        table_personel_funkcja.setCellValueFactory(new PropertyValueFactory<>("funkcja"));
+
+        table_personel_wojewodztwo.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getAdres().getWojewodztwo()));
+        table_personel_powiat.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getAdres().getPowiat()));
+        table_personel_miejscowosc.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getAdres().getMiejscowosc()));
+        table_personel_ulica.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getAdres().getUlica()));
+        table_personel_nr_domu.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getAdres().getNr_domu()));
+        table_personel_kod_pocztowy.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getAdres().getKod_pocztowy()));
         personel_tabelka.setItems(FXCollections.observableList(personelDAO.getAll()));
     }
 

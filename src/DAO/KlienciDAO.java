@@ -40,17 +40,27 @@ public class KlienciDAO {
             String imie = rs.getString("imie");
             String nazwisko = rs.getString("nazwisko");
             String nr_telefonu = rs.getString("nr_telefonu");
-            String e_mail = rs.getString("e_mail");
-            String powiat = rs.getString("powiat");
-            String miejscowosc = rs.getString("miejscowosc");
-            String ulica = rs.getString("ulica");
-            //String wojewodztwo = rs.getString("wojewodztwo");
+            String e_mail = rs.getString("e_mail");  
             Date data_urodzenia = rs.getDate("data_urodzenia");
-            String kod_pocztowy = rs.getString("kod_pocztowy");
-            String nr_domu = rs.getString("nr_domu");
+
             
             Adresy adres = new Adresy();
             String wojewodztwo = rs.getString("wojewodztwo");
+            String kod_pocztowy = rs.getString("kod_pocztowy");
+            String nr_domu = rs.getString("nr_domu");
+            String miejscowosc = rs.getString("miejscowosc");
+            String powiat = rs.getString("powiat");
+            String ulica = rs.getString("ulica");
+            adres.setWojewodztwo(wojewodztwo);
+            adres.setPowiat(powiat);
+            adres.setMiejscowosc(miejscowosc);
+            adres.setNr_domu(nr_domu);
+            adres.setWojewodztwo(wojewodztwo);
+            adres.setUlica(ulica);
+            adres.setKod_pocztowy(kod_pocztowy);
+            
+            
+            
             
             klient.setId_klienta(id_klienta);
             klient.setImie(imie);
@@ -58,14 +68,7 @@ public class KlienciDAO {
             klient.setNr_telefonu(nr_telefonu);
             klient.setE_mail(e_mail);
             klient.setData_urodzenia(data_urodzenia);
-            klient.setPowiat(powiat);
-            adres.setWojewodztwo(wojewodztwo);
             klient.setAdres(adres);
-            klient.setMiejscowosc(miejscowosc);
-            klient.setNr_domu(nr_domu);
-            klient.setWojewodztwo(wojewodztwo);
-            klient.setUlica(ulica);
-            klient.setKod_pocztowy(kod_pocztowy);
             
 
             list.add(klient);
@@ -99,6 +102,26 @@ public class KlienciDAO {
 
         stmt.executeUpdate();
     }
+    
+    public static void update(Klienci k) throws SQLException{
+        Connection con = null;
+        CallableStatement stmt = null;
+        con = JDBC_Connection.getConnections();
+        stmt = con.prepareCall("{call updateKLIENCI(?,?,?,?)}");
+        stmt.setInt(1, k.getId_klienta());
+        stmt.setString(2, k.getImie());
+        stmt.setString(3, k.getNazwisko());
+        stmt.setString(4, k.getNr_telefonu());
+        //stmt.setDate(4, (Date) k.getData_urodzenia());
+        //stmt.setString(5, k.getE_mail());
+        
+        stmt.registerOutParameter(1, java.sql.Types.INTEGER);
+        stmt.registerOutParameter(2, java.sql.Types.VARCHAR);
+        stmt.registerOutParameter(3, java.sql.Types.VARCHAR);
+        stmt.registerOutParameter(4, java.sql.Types.VARCHAR);
+
+        
+    };
     
     public KlienciDAO()
     {
