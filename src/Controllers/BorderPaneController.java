@@ -25,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -344,6 +345,8 @@ public class BorderPaneController implements Initializable {
 
         } catch (SQLException ex) {
             Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         btn_klient_zapisz.setOnAction((ActionEvent event) -> {                      //Klienci
@@ -465,6 +468,8 @@ public class BorderPaneController implements Initializable {
                 table_view_czlonkostwa();
             } catch (SQLException ex) {
                 Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         });
@@ -515,7 +520,7 @@ public class BorderPaneController implements Initializable {
         karnet_tabelka.setItems(FXCollections.observableList(karnetDAO.getAll()));
     }
 
-    private void table_view_czlonkostwa() throws SQLException {
+    private void table_view_czlonkostwa() throws SQLException, ParseException {
 
         choice_czlonkostwo_karnet.setConverter(new StringConverter<Karnety>() {
             @Override
