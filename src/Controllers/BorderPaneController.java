@@ -25,6 +25,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import static java.time.temporal.TemporalQueries.localDate;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -338,14 +341,19 @@ public class BorderPaneController implements Initializable {
             Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        btn_klient_zapisz.setOnAction((ActionEvent event) -> {
+        btn_klient_zapisz.setOnAction((ActionEvent event) -> {                      //Klienci
             System.out.println("klient");
 
             Klienci klient = new Klienci();
             klient.setImie(text_klient_imie.getText());
             klient.setNazwisko(text_klient_nazwisko.getText());
             klient.setNr_telefonu(text_klient_telefon.getText());
-            klient.setData_urodzenia(dataur_klient.getValue().toString());
+
+            java.util.Date date
+                    = java.util.Date.from(dataur_klient.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+
+            klient.setData_urodzenia(sqlDate);
 
             Adresy adres = new Adresy();
             adres.setPowiat(text_klient_powiat.getText());
@@ -361,7 +369,7 @@ public class BorderPaneController implements Initializable {
 
         });
 
-        btn_personel_zapisz.setOnAction((ActionEvent event) -> {
+        btn_personel_zapisz.setOnAction((ActionEvent event) -> {                    //Personel
             System.out.println("personel");
 
             Personel pracownik = new Personel();
@@ -390,7 +398,7 @@ public class BorderPaneController implements Initializable {
 
         });
 
-        btn_zajecia_zapisz.setOnAction((ActionEvent event) -> {
+        btn_zajecia_zapisz.setOnAction((ActionEvent event) -> {                     //Zajecia
             System.out.println("zajecia");
 
             Kategorie_zajec kategoria = new Kategorie_zajec();
@@ -411,13 +419,21 @@ public class BorderPaneController implements Initializable {
 
         });
 
-        btn_czlonkostwo_zapisz.setOnAction((ActionEvent event) -> {
+        btn_czlonkostwo_zapisz.setOnAction((ActionEvent event) -> {                     //Czlonkostwa
             System.out.println("czlonkostwo");
 
             Czlonkostwa czlonkostwo = new Czlonkostwa();
 
+            //LocalDate localDate = dataur_klient.getValue();
+            //Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            
+            java.util.Date d = new java.util.Date();          
+            java.sql.Date sd = new java.sql.Date(d.getTime());
+            
             czlonkostwo.setKarnet(choice_czlonkostwo_karnet.getValue());
             czlonkostwo.setKlient(choice_czlonkostwo_klient.getValue());
+            czlonkostwo.setData_rozpoczecia(sd);
+            
             try {
                 CzlonkostwaDAO.create(czlonkostwo);
                 table_view_czlonkostwa();
@@ -503,7 +519,7 @@ public class BorderPaneController implements Initializable {
         table_czlonkostwo_id.setCellValueFactory(new PropertyValueFactory<>("id_czlonkostwa"));
         table_czlonkostwo_imie.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getKlient().getImie()));
         table_czlonkostwo_nazwisko.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getKlient().getNazwisko()));
-        table_czlonkostwo_karnet.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getKarnet().getNazwa()));      
+        table_czlonkostwo_karnet.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getKarnet().getNazwa()));
         czlonkostwo_tabelka.setItems(FXCollections.observableList(czlonkostwaDAO.getAll()));
     }
 

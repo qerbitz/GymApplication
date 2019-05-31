@@ -6,7 +6,6 @@
 package Models;
 
 import java.util.Date;
-import javafx.beans.property.SimpleObjectProperty;
 
 /**
  *
@@ -22,7 +21,7 @@ public class Klienci extends Adresy {
 
     private String nr_telefonu;
 
-    private SimpleObjectProperty<Date> data_urodzenia;
+    private Date data_urodzenia;
 
     private String e_mail;
 
@@ -72,22 +71,14 @@ public class Klienci extends Adresy {
         this.nr_telefonu = nr_telefonu;
     }
 
-    public Object getData_urodzenia() {
-        return data_urodzenia.get();
+    
+    public Date getData_urodzenia() {
+        return data_urodzenia;
     }
 
     public void setData_urodzenia(Date data_urodzenia) {
-        this.data_urodzenia.set(data_urodzenia);
+        this.data_urodzenia = data_urodzenia;
     }
-
-    
-   // public Date getData_urodzenia() {
-    //    return data_urodzenia;
-   // }
-
-    //public void setData_urodzenia(Date data_urodzenia) {
-    //    this.data_urodzenia = data_urodzenia;
-   // }
 
     public String getE_mail() {
         return e_mail;

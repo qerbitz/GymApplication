@@ -44,6 +44,7 @@ public class KlienciDAO {
             String miejscowosc = rs.getString("miejscowosc");
             String ulica = rs.getString("ulica");
             String wojewodztwo = rs.getString("wojewodztwo");
+            Date data_urodzenia = rs.getDate("data_urodzenia");
             //String kod_pocztowy = rs.getString("kod_pocztowy");
             //String nr_domu = rs.getString("nr_domu");
             
@@ -52,6 +53,7 @@ public class KlienciDAO {
             klient.setImie(imie);
             klient.setNazwisko(nazwisko);
             klient.setNr_telefonu(nr_telefonu);
+            klient.setData_urodzenia(data_urodzenia);
             klient.setPowiat(powiat);
             klient.setMiejscowosc(miejscowosc);
            // klient.setNr_domu(nr_domu);
