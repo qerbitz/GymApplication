@@ -27,7 +27,7 @@
                      <items>
                         <AnchorPane maxWidth="400.0">
                            <children>
-                              <GridPane prefHeight="189.0" prefWidth="335.0">
+                              <GridPane prefHeight="449.0" prefWidth="335.0">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="105.0" />
                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="180.0" />
@@ -36,6 +36,11 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -86,7 +91,7 @@
                                     <TextField fx:id="text_klient_nazwisko" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <TextField fx:id="text_klient_telefon" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <TextField fx:id="text_klient_mail" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <Label text="Powiat" GridPane.rowIndex="5">
+                                    <Label text="Powiat" GridPane.rowIndex="6">
                                        <padding>
                                           <Insets left="10.0" />
                                        </padding>
@@ -94,15 +99,60 @@
                                           <Font name="Georgia" size="12.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="text_klient_powiat" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <TextField fx:id="text_klient_powiat" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <TextField fx:id="text_klient_wojewodztwo" layoutX="158.0" layoutY="265.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <TextField fx:id="text_klient_miejscowosc" layoutX="158.0" layoutY="224.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <TextField fx:id="text_klient_ulica" layoutX="158.0" layoutY="265.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <TextField fx:id="text_klient_nr_domu" layoutX="158.0" layoutY="347.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                    <Label text="Wojewodztwo" GridPane.rowIndex="5">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Georgia" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Miejscowosc" GridPane.rowIndex="7">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Georgia" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Ulica" GridPane.rowIndex="8">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Georgia" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Nr domu" GridPane.rowIndex="9">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Georgia" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Kod Pocztowy" GridPane.rowIndex="10">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Georgia" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="text_klient_kod_pocztowy" layoutX="158.0" layoutY="387.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                                  </children>
                               </GridPane>
-                              <Button fx:id="btn_klient_zapisz" layoutX="259.0" layoutY="230.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zapisz">
+                              <Button fx:id="btn_klient_zapisz" layoutX="257.0" layoutY="477.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zapisz">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btn_klient_wyczysc" layoutX="118.0" layoutY="230.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Wyczysc">
+                              <Button fx:id="btn_klient_wyczysc" layoutX="118.0" layoutY="477.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Wyczysc">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -122,6 +172,9 @@
                                     <TableColumn fx:id="table_klient_wojewodztwo" prefWidth="75.0" text="Wojewodztwo" />
                                     <TableColumn fx:id="table_klient_powiat" prefWidth="75.0" text="Powiat" />
                                     <TableColumn fx:id="table_klient_miejscowosc" prefWidth="75.0" text="Miejscowosc" />
+                                    <TableColumn fx:id="table_klient_ulica" prefWidth="75.0" text="Ulica" />
+                                    <TableColumn fx:id="table_klient_nr_domu" prefWidth="75.0" text="Nr Domu" />
+                                    <TableColumn fx:id="table_klient_kod_pocztowy" prefWidth="75.0" text="Kod Pocztowy" />
                                 </columns>
                               </TableView>
                            </children>
@@ -222,13 +275,14 @@
                            <children>
                               <TableView fx:id="personel_tabelka" prefHeight="621.0" prefWidth="900.0">
                                  <columns>
+                                    <TableColumn fx:id="table_personel_id" prefWidth="75.0" text="Id" />
                                     <TableColumn fx:id="table_personel_imie" prefWidth="75.0" text="Imie" />
                                     <TableColumn fx:id="table_personel_nazwisko" prefWidth="75.0" text="Nazwisko" />
                                     <TableColumn fx:id="table_personel_telefon" prefWidth="75.0" text="Nr telefonu" />
                                     <TableColumn fx:id="table_personel_dataur" prefWidth="75.0" text="Data urodzenia" />
                                     <TableColumn fx:id="table_personel_mail" prefWidth="75.0" text="E - mail" />
-                                    <TableColumn prefWidth="75.0" text="Column X" />
-                                    <TableColumn prefWidth="75.0" text="Column X" />
+                                    <TableColumn fx:id="table_personel_wojewodztwo" prefWidth="75.0" text="Wojewodztwo" />
+                                    <TableColumn fx:id="table_personel_powiat" prefWidth="75.0" text="Powiat" />
                                  </columns>
                               </TableView>
                            </children>

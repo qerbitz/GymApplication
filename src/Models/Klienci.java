@@ -14,7 +14,9 @@ import java.util.Date;
 public class Klienci extends Adresy {
 
     private int id_klienta;
-
+    
+    private Adresy adres;
+    
     private String imie;
 
     private String nazwisko;
@@ -35,6 +37,15 @@ public class Klienci extends Adresy {
 
     }
 
+    public Adresy getAdres() {
+        return adres;
+    }
+
+    public void setAdres(Adresy adres) {
+        this.adres = adres;
+    }
+    
+    
     public Klienci() {
 
     }
@@ -93,10 +104,10 @@ public class Klienci extends Adresy {
         return powiat;
     }
 
-    @Override
-    public String getWojewodztwo() {
-        return wojewodztwo;
-    }
+    //@Override
+    ////public String getWojewodztwo() {
+    //    return wojewodztwo;
+    //}
 
     @Override
     public String getMiejscowosc() {

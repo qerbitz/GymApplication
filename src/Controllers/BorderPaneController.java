@@ -188,6 +188,8 @@ public class BorderPaneController implements Initializable {
     @FXML
     private TableColumn<Personel, String> table_personel_imie;
     @FXML
+    private TableColumn<Personel, Integer> table_personel_id;
+    @FXML
     private TableColumn<Personel, String> table_personel_nazwisko;
     @FXML
     private TableColumn<Personel, String> table_personel_telefon;
@@ -195,6 +197,18 @@ public class BorderPaneController implements Initializable {
     private TableColumn<Personel, Date> table_personel_dataur;
     @FXML
     private TableColumn<Personel, String> table_personel_mail;
+    @FXML
+    private TableColumn<Personel, String> table_personel_powiat;
+    @FXML
+    private TableColumn<Personel, String> table_personel_wojewodztwo = new TableColumn<> ("wojewodztwo");
+    @FXML
+    private TableColumn<Personel, String> table_personel_miejscowosc;
+    @FXML
+    private TableColumn<Personel, String> table_personel_nr_domu;
+    @FXML
+    private TableColumn<Personel, String> table_personel_ulica;
+    @FXML
+    private TableColumn<Personel, String> table_personel_kod_pocztowy;
 
     //
     //
@@ -356,6 +370,7 @@ public class BorderPaneController implements Initializable {
             klient.setImie(text_klient_imie.getText());
             klient.setNazwisko(text_klient_nazwisko.getText());
             klient.setNr_telefonu(text_klient_telefon.getText());
+            klient.setE_mail(text_klient_mail.getText());
 
             java.util.Date date
                     = java.util.Date.from(dataur_klient.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -365,6 +380,12 @@ public class BorderPaneController implements Initializable {
 
             Adresy adres = new Adresy();
             adres.setPowiat(text_klient_powiat.getText());
+            //adres.setWojewodztwo(text_klient_wojewodztwo.getText());
+            adres.setMiejscowosc(text_klient_miejscowosc.getText());
+            adres.setUlica(text_klient_ulica.getText());
+            adres.setNr_domu(text_klient_nr_domu.getText());
+            adres.setKod_pocztowy(text_klient_kod_pocztowy.getText());
+            
 
             try {
                 AdresyDAO.create(adres);
@@ -496,19 +517,26 @@ public class BorderPaneController implements Initializable {
         table_klient_nazwisko.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
         table_klient_telefon.setCellValueFactory(new PropertyValueFactory<>("nr_telefonu"));
         table_klient_dataur.setCellValueFactory(new PropertyValueFactory<>("data_urodzenia"));
+        table_klient_mail.setCellValueFactory(new PropertyValueFactory<>("e_mail"));
+        
         table_klient_wojewodztwo.setCellValueFactory(new PropertyValueFactory<>("wojewodztwo"));
+        table_klient_miejscowosc.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getAdres().getMiejscowosc()));
         table_klient_powiat.setCellValueFactory(new PropertyValueFactory<>("powiat"));
         table_klient_miejscowosc.setCellValueFactory(new PropertyValueFactory<>("miejscowosc"));
-        //table_klient_powiat.setCellValueFactory(new PropertyValueFactory<>("nr_domu"));
-        //table_klient_powiat.setCellValueFactory(new PropertyValueFactory<>("ulica"));           
+        table_klient_ulica.setCellValueFactory(new PropertyValueFactory<>("ulica"));
+        table_klient_nr_domu.setCellValueFactory(new PropertyValueFactory<>("nr_domu"));   
+        table_klient_kod_pocztowy.setCellValueFactory(new PropertyValueFactory<>("kod_pocztowy"));          
         klient_tabelka.setItems(FXCollections.observableList(klientDAO.getAll()));
     }
 
     private void table_view_personel() throws SQLException {
-        //table_personel_id.setCellValueFactory(new PropertyValueFactory<>("id_klienta"));
+        table_personel_id.setCellValueFactory(new PropertyValueFactory<>("id_pracownika"));
         table_personel_imie.setCellValueFactory(new PropertyValueFactory<>("imie"));
         table_personel_nazwisko.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
         table_personel_telefon.setCellValueFactory(new PropertyValueFactory<>("nr_telefonu"));
+        table_personel_wojewodztwo.setCellValueFactory(new PropertyValueFactory<>("wojewodztwo"));
+        table_personel_powiat.setCellValueFactory(new PropertyValueFactory<>("powiat"));
+        //table_personel_miejscowosc.setCellValueFactory(new PropertyValueFactory<>("miejscowosc"));
         personel_tabelka.setItems(FXCollections.observableList(personelDAO.getAll()));
     }
 

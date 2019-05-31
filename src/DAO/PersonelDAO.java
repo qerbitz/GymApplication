@@ -52,15 +52,15 @@ public class PersonelDAO {
             pracownik.setId_pracownika(id_pracownika);
             pracownik.setImie(imie);
             pracownik.setNazwisko(nazwisko);
-            pracownik.setNazwisko(funkcja);
+            pracownik.setFunkcja(funkcja);
             pracownik.setNr_telefonu(nr_telefonu);
             
             pracownik.setPowiat(powiat);
             pracownik.setMiejscowosc(miejscowosc);
-           // klient.setNr_domu(nr_domu);
+            pracownik.setNr_domu(nr_domu);
             pracownik.setWojewodztwo(wojewodztwo);
             pracownik.setUlica(ulica);
-            //klient.setKod_pocztowy(kod_pocztowy);
+            pracownik.setKod_pocztowy(kod_pocztowy);
 
             
 

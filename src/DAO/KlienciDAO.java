@@ -40,26 +40,32 @@ public class KlienciDAO {
             String imie = rs.getString("imie");
             String nazwisko = rs.getString("nazwisko");
             String nr_telefonu = rs.getString("nr_telefonu");
+            String e_mail = rs.getString("e_mail");
             String powiat = rs.getString("powiat");
             String miejscowosc = rs.getString("miejscowosc");
             String ulica = rs.getString("ulica");
-            String wojewodztwo = rs.getString("wojewodztwo");
+            //String wojewodztwo = rs.getString("wojewodztwo");
             Date data_urodzenia = rs.getDate("data_urodzenia");
-            //String kod_pocztowy = rs.getString("kod_pocztowy");
-            //String nr_domu = rs.getString("nr_domu");
+            String kod_pocztowy = rs.getString("kod_pocztowy");
+            String nr_domu = rs.getString("nr_domu");
             
+            Adresy adres = new Adresy();
+            String wojewodztwo = rs.getString("wojewodztwo");
             
             klient.setId_klienta(id_klienta);
             klient.setImie(imie);
             klient.setNazwisko(nazwisko);
             klient.setNr_telefonu(nr_telefonu);
+            klient.setE_mail(e_mail);
             klient.setData_urodzenia(data_urodzenia);
             klient.setPowiat(powiat);
+            adres.setWojewodztwo(wojewodztwo);
+            klient.setAdres(adres);
             klient.setMiejscowosc(miejscowosc);
-           // klient.setNr_domu(nr_domu);
+            klient.setNr_domu(nr_domu);
             klient.setWojewodztwo(wojewodztwo);
             klient.setUlica(ulica);
-            //klient.setKod_pocztowy(kod_pocztowy);
+            klient.setKod_pocztowy(kod_pocztowy);
             
 
             list.add(klient);
