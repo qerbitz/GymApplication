@@ -315,6 +315,8 @@ public class BorderPaneController implements Initializable {
     private TableColumn<Czlonkostwa, Date> table_czlonkostwo_dataod;
     @FXML
     private TableColumn<Czlonkostwa, Date> table_czlonkostwo_datado;
+    @FXML
+    private TableColumn<Czlonkostwa, String> table_czlonkostwo_status;
 
     private final Kategorie_zajecDAO catDAO = new Kategorie_zajecDAO();
     private final KlienciDAO klientDAO = new KlienciDAO();
@@ -459,7 +461,7 @@ public class BorderPaneController implements Initializable {
             System.out.println(sqlendDate);
             
             try {
-                //CzlonkostwaDAO.create(czlonkostwo);
+                CzlonkostwaDAO.create(czlonkostwo);
                 table_view_czlonkostwa();
             } catch (SQLException ex) {
                 Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
@@ -547,6 +549,7 @@ public class BorderPaneController implements Initializable {
         table_czlonkostwo_karnet.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getKarnet().getNazwa()));
         table_czlonkostwo_dataod.setCellValueFactory(new PropertyValueFactory<>("data_rozpoczecia"));
         table_czlonkostwo_datado.setCellValueFactory(new PropertyValueFactory<>("data_zakonczenia"));
+        table_czlonkostwo_status.setCellValueFactory(new PropertyValueFactory<>("status"));
         czlonkostwo_tabelka.setItems(FXCollections.observableList(czlonkostwaDAO.getAll()));
     }
 

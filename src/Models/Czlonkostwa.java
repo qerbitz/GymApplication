@@ -22,13 +22,16 @@ public class Czlonkostwa {
     private Date data_rozpoczecia;
     
     private Date data_zakonczenia;
+    
+    private String status;
 
-    public Czlonkostwa(int id_czlonkostwa, Karnety karnet, Klienci klient, Date data_rozpoczecia, Date data_zakonczenia) {
+    public Czlonkostwa(int id_czlonkostwa, Karnety karnet, Klienci klient, Date data_rozpoczecia, Date data_zakonczenia, String status) {
         this.id_czlonkostwa = id_czlonkostwa;
         this.karnet = karnet;
         this.klient = klient;
         this.data_rozpoczecia = data_rozpoczecia;
         this.data_zakonczenia = data_zakonczenia;
+        this.status = status;
     }
     
     public Czlonkostwa()
@@ -36,6 +39,15 @@ public class Czlonkostwa {
         
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    
     public int getId_czlonkostwa() {
         return id_czlonkostwa;
     }

@@ -698,12 +698,13 @@
                            <children>
                               <TableView fx:id="czlonkostwo_tabelka" prefHeight="621.0" prefWidth="900.0">
                                  <columns>
-                                    <TableColumn fx:id="table_czlonkostwo_id" prefWidth="150.0" text="Lp." />
-                                    <TableColumn fx:id="table_czlonkostwo_imie" prefWidth="150.0" text="Imie" />
-                                    <TableColumn fx:id="table_czlonkostwo_nazwisko" prefWidth="150.0" text="Nazwisko" />
-                                    <TableColumn fx:id="table_czlonkostwo_karnet" prefWidth="150.0" text="Karnet" />
-                                    <TableColumn fx:id="table_czlonkostwo_dataod" prefWidth="150.0" text="Data rozpoczęcia" />
-                                    <TableColumn fx:id="table_czlonkostwo_datado" prefWidth="150.0" text="Data zakonczenia" />
+                                    <TableColumn fx:id="table_czlonkostwo_id" prefWidth="128.0" text="Lp." />
+                                    <TableColumn fx:id="table_czlonkostwo_imie" prefWidth="128.0" text="Imie" />
+                                    <TableColumn fx:id="table_czlonkostwo_nazwisko" prefWidth="128.0" text="Nazwisko" />
+                                    <TableColumn fx:id="table_czlonkostwo_karnet" prefWidth="128.0" text="Karnet" />
+                                    <TableColumn fx:id="table_czlonkostwo_dataod" prefWidth="128.0" text="Data rozpoczęcia" />
+                                    <TableColumn fx:id="table_czlonkostwo_datado" prefWidth="128.0" text="Data zakonczenia" />
+                                    <TableColumn fx:id="table_czlonkostwo_status" prefWidth="130.0" text="Status" />
                                  </columns>
                               </TableView>
                            </children>

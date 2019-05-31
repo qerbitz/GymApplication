@@ -38,6 +38,7 @@ public class CzlonkostwaDAO {
             int id_czlonkostwa = rs.getInt("id_czlonkostwa");
             Date data_rozpoczecia = rs.getDate("data_rozpoczecia");
             Date data_zakonczenia = rs.getDate("data_zakonczenia");
+            String status = compareDate(data_zakonczenia);
                         
             Karnety karnet = new Karnety();
             int id_karnetu = rs.getInt("id_karnetu");
@@ -56,6 +57,7 @@ public class CzlonkostwaDAO {
             czlonkostwo.setKlient(klient);
             czlonkostwo.setData_rozpoczecia(data_rozpoczecia);
             czlonkostwo.setData_zakonczenia(data_zakonczenia);
+            czlonkostwo.setStatus(status);
 
 
             list.add(czlonkostwo);
@@ -63,6 +65,24 @@ public class CzlonkostwaDAO {
 
         return list;
 
+    }
+    
+    public String compareDate(Date datka)
+    {
+        String pomocnicza;
+        
+        java.util.Date d = new java.util.Date();                     
+            if(datka.getTime()>=d.getTime())
+            {
+                pomocnicza = "chuj";
+                return pomocnicza;
+            }
+            else
+            {
+                pomocnicza = "dwa chuje";
+                return pomocnicza;
+            }
+                    
     }
 
     public static void create(Czlonkostwa cz) throws SQLException {
