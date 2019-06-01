@@ -147,21 +147,25 @@
                                     <TextField fx:id="text_klient_kod_pocztowy" layoutX="158.0" layoutY="387.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                                  </children>
                               </GridPane>
-                              <Button fx:id="btn_klient_zapisz" layoutX="257.0" layoutY="477.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zapisz">
+                              <Button fx:id="btn_klient_zapisz" layoutX="273.0" layoutY="484.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zapisz">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btn_klient_wyczysc" layoutX="132.0" layoutY="484.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Wyczysc">
+                              <Button fx:id="btn_klient_wyczysc" layoutX="156.0" layoutY="484.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Wyczysc">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btn_klient_update" layoutX="14.0" layoutY="524.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="129.0" text="Modyfikuj">
+                              <Button fx:id="btn_klient_update" layoutX="269.0" layoutY="540.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="109.0" text="Aktualizuj">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font size="14.0" />
                                  </font>
                               </Button>
+                              <Button fx:id="btn_klient_modify" layoutX="156.0" layoutY="540.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Modyfikuj">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Button>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">

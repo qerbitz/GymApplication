@@ -14,7 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.query.Query;
 
 /**
  *
@@ -35,22 +34,23 @@ public class KlienciDAO {
 
         while (rs.next()) {
             Klienci klient = new Klienci();
-     
+
             int id_klienta = rs.getInt("id_klienta");
             String imie = rs.getString("imie");
             String nazwisko = rs.getString("nazwisko");
             String nr_telefonu = rs.getString("nr_telefonu");
-            String e_mail = rs.getString("e_mail");  
+            String e_mail = rs.getString("e_mail");
             Date data_urodzenia = rs.getDate("data_urodzenia");
 
-            
             Adresy adres = new Adresy();
+            int id_adresu = rs.getInt("id_adresu");
             String wojewodztwo = rs.getString("wojewodztwo");
             String kod_pocztowy = rs.getString("kod_pocztowy");
             String nr_domu = rs.getString("nr_domu");
             String miejscowosc = rs.getString("miejscowosc");
             String powiat = rs.getString("powiat");
             String ulica = rs.getString("ulica");
+            adres.setId_adresu(id_adresu);
             adres.setWojewodztwo(wojewodztwo);
             adres.setPowiat(powiat);
             adres.setMiejscowosc(miejscowosc);
@@ -58,10 +58,7 @@ public class KlienciDAO {
             adres.setWojewodztwo(wojewodztwo);
             adres.setUlica(ulica);
             adres.setKod_pocztowy(kod_pocztowy);
-            
-            
-            
-            
+
             klient.setId_klienta(id_klienta);
             klient.setImie(imie);
             klient.setNazwisko(nazwisko);
@@ -69,11 +66,10 @@ public class KlienciDAO {
             klient.setE_mail(e_mail);
             klient.setData_urodzenia(data_urodzenia);
             klient.setAdres(adres);
-            
 
             list.add(klient);
         }
-  
+
         return list;
 
     }
@@ -90,20 +86,17 @@ public class KlienciDAO {
         stmt.setString(3, k.getNr_telefonu());
         stmt.setDate(4, (Date) k.getData_urodzenia());
         stmt.setString(5, k.getE_mail());
-        
-        
 
         stmt.registerOutParameter(1, java.sql.Types.VARCHAR);
         stmt.registerOutParameter(2, java.sql.Types.VARCHAR);
         stmt.registerOutParameter(3, java.sql.Types.VARCHAR);
         stmt.registerOutParameter(4, java.sql.Types.DATE);
         stmt.registerOutParameter(5, java.sql.Types.VARCHAR);
-        
 
         stmt.executeUpdate();
     }
-    
-    public static void update(Klienci k) throws SQLException{
+
+    public static void update(Klienci k) throws SQLException {
         Connection con = null;
         CallableStatement stmt = null;
         con = JDBC_Connection.getConnections();
@@ -114,18 +107,18 @@ public class KlienciDAO {
         stmt.setString(4, k.getNr_telefonu());
         //stmt.setDate(4, (Date) k.getData_urodzenia());
         //stmt.setString(5, k.getE_mail());
-        
+
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
         stmt.registerOutParameter(2, java.sql.Types.VARCHAR);
         stmt.registerOutParameter(3, java.sql.Types.VARCHAR);
         stmt.registerOutParameter(4, java.sql.Types.VARCHAR);
+        
+        stmt.executeUpdate();
 
-        
-    };
+    }
     
-    public KlienciDAO()
-    {
-        
+    public KlienciDAO() {
+
     }
 
 }

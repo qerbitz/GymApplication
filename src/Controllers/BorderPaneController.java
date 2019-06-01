@@ -20,11 +20,17 @@ import Models.Klienci;
 import Models.Personel;
 import Models.Produkty;
 import Models.Zamowienia;
+import java.io.IOException;
 import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import java.net.URL;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Types;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -119,6 +125,8 @@ public class BorderPaneController implements Initializable {
     private Button btn_klient_wyczysc;
     @FXML
     private Button btn_klient_update;
+    @FXML
+    private Button btn_klient_modify;
 
     @FXML
     private TableView<Klienci> klient_tabelka;
@@ -351,7 +359,7 @@ public class BorderPaneController implements Initializable {
      */
     @Override
 
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)  {
         try {
             // TODO
 
@@ -394,7 +402,7 @@ public class BorderPaneController implements Initializable {
                 AdresyDAO.create(adres);
                 KlienciDAO.create(klient);
                 table_view_klienci();
-
+                klient_wyczysc();
             } catch (SQLException ex) {
                 Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -410,23 +418,54 @@ public class BorderPaneController implements Initializable {
             klient.setImie(text_klient_imie.getText());
             klient.setNazwisko(text_klient_nazwisko.getText());
             klient.setNr_telefonu(text_klient_telefon.getText());
-            //klient.setE_mail(text_klient_mail.getText());
-            System.out.println(klient.getId_klienta());
             
+            Adresy adres = new Adresy();
+            adres.setId_adresu(klient.getAdres().getId_adresu());
+            adres.setPowiat(text_klient_powiat.getText());
+            adres.setWojewodztwo(text_klient_wojewodztwo.getText());
+            adres.setMiejscowosc(text_klient_miejscowosc.getText());
+            adres.setUlica(text_klient_ulica.getText());
+            adres.setNr_domu(text_klient_nr_domu.getText());
+            adres.setKod_pocztowy(text_klient_kod_pocztowy.getText());
             
             
             try {
                 KlienciDAO.update(klient);
-                //klient_tabelka.setItems(FXCollections.observableList(klientDAO.getAll()));
+                AdresyDAO.update(adres);
+                klient_tabelka.setItems(FXCollections.observableList(klientDAO.getAll()));
                 table_view_klienci();
+                klient_wyczysc();          
             } catch (SQLException ex) {
                 Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+
+        btn_klient_wyczysc.setOnAction((ActionEvent event) -> {
+            klient_wyczysc();
+        });
+        
+        btn_klient_modify.setOnAction((ActionEvent event) -> {
+            Klienci klient = new Klienci();
+            klient = klient_tabelka.getSelectionModel().getSelectedItem();
+            text_klient_imie.setText(klient.getImie());
+            text_klient_nazwisko.setText(klient.getNazwisko());
+            text_klient_telefon.setText(klient.getNr_telefonu());
+            text_klient_mail.setText(klient.getE_mail());
+                        
+            Adresy adres = new Adresy();
+            adres = klient_tabelka.getSelectionModel().getSelectedItem();
+            text_klient_wojewodztwo.setText(klient.getAdres().getWojewodztwo());
+            text_klient_powiat.setText(klient.getAdres().getPowiat());
+            text_klient_miejscowosc.setText(klient.getAdres().getMiejscowosc());
+            text_klient_ulica.setText(klient.getAdres().getUlica());
+            text_klient_nr_domu.setText(klient.getAdres().getNr_domu());
+            text_klient_kod_pocztowy.setText(klient.getAdres().getKod_pocztowy());
+            
+        });
 ////////////////////////////
 //ZAPISYWANIE Personelu
 ////////////////////////////
-        btn_personel_zapisz.setOnAction((ActionEvent event) -> {                   
+        btn_personel_zapisz.setOnAction((ActionEvent event) -> {
             Personel pracownik = new Personel();
             pracownik.setImie(text_personel_imie.getText());
             pracownik.setNazwisko(text_personel_nazwisko.getText());
@@ -543,6 +582,20 @@ public class BorderPaneController implements Initializable {
 
         });
 
+    }
+
+    private void klient_wyczysc() {
+        text_klient_imie.clear();
+        text_klient_nazwisko.clear();
+        text_klient_telefon.clear();
+        text_klient_mail.clear();
+        text_klient_powiat.clear();
+        text_klient_wojewodztwo.clear();
+        text_klient_miejscowosc.clear();
+        text_klient_ulica.clear();
+        text_klient_nr_domu.clear();
+        text_klient_kod_pocztowy.clear();
+        dataur_klient.setValue(null);
     }
 
     private void table_view_kategorii() throws SQLException {
