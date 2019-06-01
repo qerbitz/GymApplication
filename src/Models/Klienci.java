@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author HP
  */
-public class Klienci extends Adresy {
+public class Klienci extends Adresy{
 
     private int id_klienta;
     

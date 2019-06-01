@@ -42,7 +42,6 @@ public class Personel extends Adresy{
     public Personel() {
 
     }
-
     public Adresy getAdres() {
         return adres;
     }
@@ -50,8 +49,6 @@ public class Personel extends Adresy{
     public void setAdres(Adresy adres) {
         this.adres = adres;
     }
-    
-    
 
     public int getId_pracownika() {
         return id_pracownika;

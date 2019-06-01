@@ -166,6 +166,11 @@
                                  <font>
                                     <Font size="14.0" />
                                  </font></Button>
+                              <Button fx:id="btn_klient_delete" layoutX="40.0" layoutY="510.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Usun rekord">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -318,14 +323,29 @@
                                     <TextField fx:id="text_personel_kod_pocztowy" layoutX="158.0" layoutY="368.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                                  </children>
                               </GridPane>
-                              <Button fx:id="btn_personel_zapisz" layoutX="242.0" layoutY="491.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zapisz">
+                              <Button fx:id="btn_personel_zapisz" layoutX="261.0" layoutY="491.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zapisz">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btn_personel_wyczysc" layoutX="97.0" layoutY="491.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Wyczysc">
+                              <Button fx:id="btn_personel_wyczysc" layoutX="147.0" layoutY="491.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Wyczysc">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btn_personel_update" layoutX="261.0" layoutY="538.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Aktualizuj">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btn_personel_modify" layoutX="147.0" layoutY="538.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Modyfikuj">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btn_personel_delete" layoutX="24.0" layoutY="518.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Usun rekord">
+                                 <font>
+                                    <Font size="14.0" />
                                  </font>
                               </Button>
                            </children>
@@ -799,14 +819,29 @@
                                     <ChoiceBox fx:id="choice_czlonkostwo_klient" prefHeight="31.0" prefWidth="189.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                  </children>
                               </GridPane>
-                              <Button fx:id="btn_czlonkostwo_zapisz" layoutX="196.0" layoutY="252.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zapisz">
+                              <Button fx:id="btn_czlonkostwo_zapisz" layoutX="261.0" layoutY="176.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zapisz">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btn_czlonkostwo_wyczysc" layoutX="83.0" layoutY="246.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Wyczysc">
+                              <Button fx:id="btn_czlonkostwo_wyczysc" layoutX="147.0" layoutY="176.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Wyczysc">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btn_czlonkostwo_update" layoutX="261.0" layoutY="232.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Aktualizuj">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btn_czlonkostwo_modify" layoutX="147.0" layoutY="232.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Modyfikuj">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btn_czlonkostwo_delete" layoutX="31.0" layoutY="203.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Usun rekord">
+                                 <font>
+                                    <Font size="14.0" />
                                  </font>
                               </Button>
                            </children>

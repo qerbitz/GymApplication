@@ -7,7 +7,6 @@ package Controllers;
 
 import DAO.AdresyDAO;
 import DAO.CzlonkostwaDAO;
-import DAO.JDBC_Connection;
 import DAO.KarnetyDAO;
 import DAO.Kategorie_zajecDAO;
 import DAO.KlienciDAO;
@@ -20,31 +19,16 @@ import Models.Klienci;
 import Models.Personel;
 import Models.Produkty;
 import Models.Zamowienia;
-import java.io.IOException;
-import javafx.event.Event;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import java.net.URL;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Types;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.ZoneId;
-import static java.time.temporal.TemporalQueries.localDate;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -57,8 +41,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  * FXML Controller class
@@ -78,6 +60,12 @@ public class BorderPaneController implements Initializable {
     private Button btn_karnet_zapisz;
     @FXML
     private Button btn_karnet_wyczysc;
+    @FXML
+    private Button btn_karnet_update;
+    @FXML
+    private Button btn_karnet_modify;
+    @FXML
+    private Button btn_karnet_delete;
     @FXML
     private TableView karnet_tabelka;
     @FXML
@@ -127,6 +115,8 @@ public class BorderPaneController implements Initializable {
     private Button btn_klient_update;
     @FXML
     private Button btn_klient_modify;
+    @FXML
+    private Button btn_klient_delete;
 
     @FXML
     private TableView<Klienci> klient_tabelka;
@@ -192,9 +182,15 @@ public class BorderPaneController implements Initializable {
     private Button btn_personel_zapisz;
     @FXML
     private Button btn_personel_wyczysc;
+    @FXML
+    private Button btn_personel_update;
+    @FXML
+    private Button btn_personel_modify;
+    @FXML
+    private Button btn_personel_delete;
 
     @FXML
-    private TableView personel_tabelka;
+    private TableView<Personel> personel_tabelka;
     @FXML
     private TableColumn<Personel, String> table_personel_imie;
     @FXML
@@ -327,6 +323,12 @@ public class BorderPaneController implements Initializable {
     private Button btn_czlonkostwo_zapisz;
     @FXML
     private Button btn_czlonkostwo_wyczysc;
+    @FXML
+    private Button btn_czlonkostwo_update;
+    @FXML
+    private Button btn_czlonkostwo_modify;
+    @FXML
+    private Button btn_czlonkostwo_delete;
 
     @FXML
     private TableView czlonkostwo_tabelka;
@@ -359,7 +361,7 @@ public class BorderPaneController implements Initializable {
      */
     @Override
 
-    public void initialize(URL url, ResourceBundle rb)  {
+    public void initialize(URL url, ResourceBundle rb) {
         try {
             // TODO
 
@@ -367,16 +369,14 @@ public class BorderPaneController implements Initializable {
             table_view_klienci();       //wyswietlanie table_view
             table_view_personel();      //wyswietlanie table_view
             table_view_karnety();       //wyswietlanie table_view
-            table_view_czlonkostwa();
+            table_view_czlonkostwa();   //wyswietlanie table_view
 
         } catch (SQLException ex) {
             Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
         }
-////////////////////////////
 //ZAPISYWANIE KLIENTA
-////////////////////////////
         btn_klient_zapisz.setOnAction((ActionEvent event) -> {
             Klienci klient = new Klienci();
             klient.setImie(text_klient_imie.getText());
@@ -402,23 +402,23 @@ public class BorderPaneController implements Initializable {
                 AdresyDAO.create(adres);
                 KlienciDAO.create(klient);
                 table_view_klienci();
+                table_view_czlonkostwa();
                 klient_wyczysc();
             } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
                 Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         });
-////////////////////////////
 //Modyfikacja klienta
-////////////////////////////      
-
         btn_klient_update.setOnAction((ActionEvent event) -> {
             Klienci klient = new Klienci();
             klient = klient_tabelka.getSelectionModel().getSelectedItem();
             klient.setImie(text_klient_imie.getText());
             klient.setNazwisko(text_klient_nazwisko.getText());
             klient.setNr_telefonu(text_klient_telefon.getText());
-            
+
             Adresy adres = new Adresy();
             adres.setId_adresu(klient.getAdres().getId_adresu());
             adres.setPowiat(text_klient_powiat.getText());
@@ -427,23 +427,22 @@ public class BorderPaneController implements Initializable {
             adres.setUlica(text_klient_ulica.getText());
             adres.setNr_domu(text_klient_nr_domu.getText());
             adres.setKod_pocztowy(text_klient_kod_pocztowy.getText());
-            
-            
+
             try {
                 KlienciDAO.update(klient);
                 AdresyDAO.update(adres);
                 klient_tabelka.setItems(FXCollections.observableList(klientDAO.getAll()));
                 table_view_klienci();
-                klient_wyczysc();          
+                klient_wyczysc();
             } catch (SQLException ex) {
                 Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-
+//Czysczenie textfieldow klienta
         btn_klient_wyczysc.setOnAction((ActionEvent event) -> {
             klient_wyczysc();
         });
-        
+//Przygotowanie przed modyfikacja       
         btn_klient_modify.setOnAction((ActionEvent event) -> {
             Klienci klient = new Klienci();
             klient = klient_tabelka.getSelectionModel().getSelectedItem();
@@ -451,7 +450,7 @@ public class BorderPaneController implements Initializable {
             text_klient_nazwisko.setText(klient.getNazwisko());
             text_klient_telefon.setText(klient.getNr_telefonu());
             text_klient_mail.setText(klient.getE_mail());
-                        
+
             Adresy adres = new Adresy();
             adres = klient_tabelka.getSelectionModel().getSelectedItem();
             text_klient_wojewodztwo.setText(klient.getAdres().getWojewodztwo());
@@ -460,10 +459,31 @@ public class BorderPaneController implements Initializable {
             text_klient_ulica.setText(klient.getAdres().getUlica());
             text_klient_nr_domu.setText(klient.getAdres().getNr_domu());
             text_klient_kod_pocztowy.setText(klient.getAdres().getKod_pocztowy());
-            
+
+        });
+//Usuwanie klienta        
+        btn_klient_delete.setOnAction((ActionEvent event) -> {
+            Klienci klient = new Klienci();
+            klient = klient_tabelka.getSelectionModel().getSelectedItem();
+
+            Adresy adres = new Adresy();
+            adres = klient_tabelka.getSelectionModel().getSelectedItem();
+            adres.setId_adresu(klient.getAdres().getId_adresu());
+
+            try {
+                AdresyDAO.delete(adres);
+                klient_tabelka.setItems(FXCollections.observableList(klientDAO.getAll()));
+                table_view_klienci();
+                table_view_czlonkostwa();
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         });
 ////////////////////////////
-//ZAPISYWANIE Personelu
+////////Personel////////////
 ////////////////////////////
         btn_personel_zapisz.setOnAction((ActionEvent event) -> {
             Personel pracownik = new Personel();
@@ -495,6 +515,40 @@ public class BorderPaneController implements Initializable {
                 Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
+        });
+//        
+        btn_personel_update.setOnAction((ActionEvent event) -> {
+            personel_wyczysc();
+        });
+//        
+        btn_personel_modify.setOnAction((ActionEvent event) -> {
+            personel_wyczysc();
+        });
+//
+        btn_personel_wyczysc.setOnAction((ActionEvent event) -> {
+            personel_wyczysc();
+        });
+//
+        btn_personel_delete.setOnAction((ActionEvent event) -> {
+            Personel pracownik = new Personel();
+            pracownik = personel_tabelka.getSelectionModel().getSelectedItem();
+
+            Adresy adres = new Adresy();
+            adres = personel_tabelka.getSelectionModel().getSelectedItem();
+            adres.setId_adresu(pracownik.getAdres().getId_adresu());
+            
+            System.out.println(pracownik.getAdres().getId_adresu());
+/*
+            try {
+                AdresyDAO.delete(adres);
+                personel_tabelka.setItems(FXCollections.observableList(personelDAO.getAll()));
+                table_view_personel();
+                table_view_czlonkostwa();
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }*/
         });
 ////////////////////////////
 ////////////////////////////
@@ -596,6 +650,20 @@ public class BorderPaneController implements Initializable {
         text_klient_nr_domu.clear();
         text_klient_kod_pocztowy.clear();
         dataur_klient.setValue(null);
+    }
+    
+    private void personel_wyczysc() {
+        text_personel_imie.clear();
+        text_personel_nazwisko.clear();
+        text_personel_telefon.clear();
+        text_personel_funkcja.clear();
+        text_personel_powiat.clear();
+        text_personel_wojewodztwo.clear();
+        text_personel_miejscowosc.clear();
+        text_personel_ulica.clear();
+        text_personel_nr_domu.clear();
+        text_personel_kod_pocztowy.clear();
+        dataur_personel.setValue(null);
     }
 
     private void table_view_kategorii() throws SQLException {

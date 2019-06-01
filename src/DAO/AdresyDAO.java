@@ -68,4 +68,17 @@ public class AdresyDAO {
 
     }
     
+    public static void delete(Adresy a) throws SQLException {
+        Connection con = null;
+        CallableStatement stmt = null;
+        con = JDBC_Connection.getConnections();
+        stmt = con.prepareCall("{call deleteADRESY(?)}");
+        stmt.setInt(1, a.getId_adresu());
+
+        stmt.registerOutParameter(1, java.sql.Types.INTEGER);
+        
+        stmt.executeUpdate();
+
+    }
+    
 }
