@@ -485,6 +485,7 @@ public class BorderPaneController implements Initializable {
 ////////////////////////////
 ////////Personel////////////
 ////////////////////////////
+/*
         btn_personel_zapisz.setOnAction((ActionEvent event) -> {
             Personel pracownik = new Personel();
             pracownik.setImie(text_personel_imie.getText());
@@ -514,31 +515,54 @@ public class BorderPaneController implements Initializable {
             } catch (SQLException ex) {
                 Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+        
         });
-//        
+//Aktualizacja personelu        
         btn_personel_update.setOnAction((ActionEvent event) -> {
-            personel_wyczysc();
+            
+            Personel pracownik = new Personel();
+            pracownik = personel_tabelka.getSelectionModel().getSelectedItem();
+            pracownik.setImie(text_personel_imie.getText());
+            pracownik.setNazwisko(text_personel_nazwisko.getText());
+            pracownik.setNr_telefonu(text_personel_telefon.getText());
+            pracownik.setFunkcja(text_personel_funkcja.getText());
+
+            Adresy adres = new Adresy();
+            adres.setId_adresu(pracownik.getAdres().getId_adresu());
+            adres.setPowiat(text_personel_powiat.getText());
+            adres.setWojewodztwo(text_personel_wojewodztwo.getText());
+            adres.setMiejscowosc(text_personel_miejscowosc.getText());
+            adres.setUlica(text_personel_ulica.getText());
+            adres.setNr_domu(text_personel_nr_domu.getText());
+            adres.setKod_pocztowy(text_personel_kod_pocztowy.getText());
+            
+            try {
+                PersonelDAO.update(pracownik);
+                AdresyDAO.update(adres);
+                personel_tabelka.setItems(FXCollections.observableList(personelDAO.getAll()));
+                table_view_personel();
+                klient_wyczysc();
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
-//        
+//Przygotowanie przed modyfikacja        
         btn_personel_modify.setOnAction((ActionEvent event) -> {
-            personel_wyczysc();
+            personel_pomoc();
         });
-//
+//Czyszczenie textfieldow
         btn_personel_wyczysc.setOnAction((ActionEvent event) -> {
             personel_wyczysc();
         });
-//
+//Usuwanie pracownika
         btn_personel_delete.setOnAction((ActionEvent event) -> {
             Personel pracownik = new Personel();
             pracownik = personel_tabelka.getSelectionModel().getSelectedItem();
 
             Adresy adres = new Adresy();
             adres = personel_tabelka.getSelectionModel().getSelectedItem();
-            adres.setId_adresu(pracownik.getAdres().getId_adresu());
-            
-            System.out.println(pracownik.getAdres().getId_adresu());
-/*
+            adres.setId_adresu(pracownik.getAdres().getId_adresu());           
+
             try {
                 AdresyDAO.delete(adres);
                 personel_tabelka.setItems(FXCollections.observableList(personelDAO.getAll()));
@@ -548,8 +572,9 @@ public class BorderPaneController implements Initializable {
                 Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ParseException ex) {
                 Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
-        });
+            }
+        });*/
+personel();
 ////////////////////////////
 ////////////////////////////
 ////////////////////////////
@@ -637,7 +662,119 @@ public class BorderPaneController implements Initializable {
         });
 
     }
+    
+    private void personel()
+    {
+        btn_personel_zapisz.setOnAction((ActionEvent event) -> {
+            Personel pracownik = new Personel();
+            pracownik.setImie(text_personel_imie.getText());
+            pracownik.setNazwisko(text_personel_nazwisko.getText());
+            pracownik.setNr_telefonu(text_personel_telefon.getText());
+            pracownik.setFunkcja(text_personel_funkcja.getText());
 
+            //pozyskanie daty urodzenia
+            java.util.Date date
+                    = java.util.Date.from(dataur_personel.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+
+            pracownik.setData_urodzenia(sqlDate);
+            //
+
+            Adresy adres = new Adresy();
+            adres.setPowiat(text_personel_powiat.getText());
+            adres.setWojewodztwo(text_personel_wojewodztwo.getText());
+            adres.setMiejscowosc(text_personel_miejscowosc.getText());
+            adres.setUlica(text_personel_ulica.getText());
+            adres.setNr_domu(text_personel_nr_domu.getText());
+            adres.setKod_pocztowy(text_personel_kod_pocztowy.getText());
+            try {
+                AdresyDAO.create(adres);
+                PersonelDAO.create(pracownik);
+                table_view_personel();
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        });
+//Aktualizacja personelu        
+        btn_personel_update.setOnAction((ActionEvent event) -> {
+            
+            Personel pracownik = new Personel();
+            pracownik = personel_tabelka.getSelectionModel().getSelectedItem();
+            pracownik.setImie(text_personel_imie.getText());
+            pracownik.setNazwisko(text_personel_nazwisko.getText());
+            pracownik.setNr_telefonu(text_personel_telefon.getText());
+            pracownik.setFunkcja(text_personel_funkcja.getText());
+
+            Adresy adres = new Adresy();
+            adres.setId_adresu(pracownik.getAdres().getId_adresu());
+            adres.setPowiat(text_personel_powiat.getText());
+            adres.setWojewodztwo(text_personel_wojewodztwo.getText());
+            adres.setMiejscowosc(text_personel_miejscowosc.getText());
+            adres.setUlica(text_personel_ulica.getText());
+            adres.setNr_domu(text_personel_nr_domu.getText());
+            adres.setKod_pocztowy(text_personel_kod_pocztowy.getText());
+            
+            try {
+                PersonelDAO.update(pracownik);
+                AdresyDAO.update(adres);
+                personel_tabelka.setItems(FXCollections.observableList(personelDAO.getAll()));
+                table_view_personel();
+                klient_wyczysc();
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+//Przygotowanie przed modyfikacja        
+        btn_personel_modify.setOnAction((ActionEvent event) -> {
+            personel_pomoc();
+        });
+//Czyszczenie textfieldow
+        btn_personel_wyczysc.setOnAction((ActionEvent event) -> {
+            personel_wyczysc();
+        });
+//Usuwanie pracownika
+        btn_personel_delete.setOnAction((ActionEvent event) -> {
+            Personel pracownik = new Personel();
+            pracownik = personel_tabelka.getSelectionModel().getSelectedItem();
+
+            Adresy adres = new Adresy();
+            adres = personel_tabelka.getSelectionModel().getSelectedItem();
+            adres.setId_adresu(pracownik.getAdres().getId_adresu());           
+
+            try {
+                AdresyDAO.delete(adres);
+                personel_tabelka.setItems(FXCollections.observableList(personelDAO.getAll()));
+                table_view_personel();
+                table_view_czlonkostwa();
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+    }
+    
+    private void personel_pomoc()
+    {
+            Personel pracownik = new Personel();
+            pracownik = personel_tabelka.getSelectionModel().getSelectedItem();
+            text_personel_imie.setText(pracownik.getImie());
+            text_personel_nazwisko.setText(pracownik.getNazwisko());
+            text_personel_telefon.setText(pracownik.getNr_telefonu());
+            text_personel_funkcja.setText(pracownik.getFunkcja());
+            
+            Adresy adres = new Adresy();
+            adres = klient_tabelka.getSelectionModel().getSelectedItem();
+            text_personel_wojewodztwo.setText(pracownik.getAdres().getWojewodztwo());
+            text_personel_powiat.setText(pracownik.getAdres().getPowiat());
+            text_personel_miejscowosc.setText(pracownik.getAdres().getMiejscowosc());
+            text_personel_ulica.setText(pracownik.getAdres().getUlica());
+            text_personel_nr_domu.setText(pracownik.getAdres().getNr_domu());
+            text_personel_kod_pocztowy.setText(pracownik.getAdres().getKod_pocztowy());
+            
+    }
+    
     private void klient_wyczysc() {
         text_klient_imie.clear();
         text_klient_nazwisko.clear();

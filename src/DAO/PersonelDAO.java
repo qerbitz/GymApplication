@@ -43,12 +43,14 @@ public class PersonelDAO {
             Date data_urodzenia = rs.getDate("data_urodzenia");
             
             Adresy adres2 = new Adresy();
+            int id_adresu = rs.getInt("id_adresu");
             String wojewodztwo = rs.getString("wojewodztwo");
             String kod_pocztowy = rs.getString("kod_pocztowy");
             String nr_domu = rs.getString("nr_domu");
             String miejscowosc = rs.getString("miejscowosc");
             String powiat = rs.getString("powiat");
             String ulica = rs.getString("ulica");
+            adres2.setId_adresu(id_adresu);
             adres2.setWojewodztwo(wojewodztwo);
             adres2.setPowiat(powiat);
             adres2.setMiejscowosc(miejscowosc);
@@ -95,5 +97,25 @@ public class PersonelDAO {
         stmt.registerOutParameter(5, java.sql.Types.VARCHAR);
 
         stmt.executeUpdate();
+    }
+    
+     public static void update(Personel k) throws SQLException {
+        Connection con = null;
+        CallableStatement stmt = null;
+        con = JDBC_Connection.getConnections();
+        stmt = con.prepareCall("{call updatePERSONEL(?,?,?,?,?)}");
+        stmt.setInt(1, k.getId_pracownika());
+        stmt.setString(2, k.getImie());
+        stmt.setString(3, k.getNazwisko());
+        stmt.setString(4, k.getFunkcja());
+        stmt.setString(5, k.getNr_telefonu());
+
+        stmt.registerOutParameter(1, java.sql.Types.INTEGER);
+        stmt.registerOutParameter(2, java.sql.Types.VARCHAR);
+        stmt.registerOutParameter(3, java.sql.Types.VARCHAR);
+        stmt.registerOutParameter(4, java.sql.Types.VARCHAR);
+        stmt.registerOutParameter(5, java.sql.Types.VARCHAR);
+        stmt.executeUpdate();
+
     }
 }
