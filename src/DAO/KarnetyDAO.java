@@ -99,7 +99,37 @@ public class KarnetyDAO {
 
         stmt.executeUpdate();
     }
+    
+    public static void update(Karnety k) throws SQLException {
+        Connection con = null;
+        CallableStatement stmt = null;
+        con = JDBC_Connection.getConnections();
+        stmt = con.prepareCall("{call updateKARNETY(?,?,?,?)}");
+        stmt.setInt(1, k.getId_karnetu());
+        stmt.setString(2, k.getNazwa());
+        stmt.setInt(3, k.getWaznosc());
+        stmt.setFloat(4, k.getCena());
 
+        stmt.registerOutParameter(1, java.sql.Types.INTEGER);
+        stmt.registerOutParameter(2, java.sql.Types.VARCHAR);
+        stmt.registerOutParameter(3, java.sql.Types.INTEGER);
+        stmt.registerOutParameter(4, java.sql.Types.FLOAT);
+        stmt.executeUpdate();
+
+    }
+    
+        public static void delete(Karnety k) throws SQLException {
+        Connection con = null;
+        CallableStatement stmt = null;
+        con = JDBC_Connection.getConnections();
+        stmt = con.prepareCall("{call deleteKARNETY(?)}");
+        stmt.setInt(1, k.getId_karnetu());
+
+        stmt.registerOutParameter(1, java.sql.Types.INTEGER);
+        
+        stmt.executeUpdate();
+
+    }
     public KarnetyDAO() {
 
     }

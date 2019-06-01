@@ -46,7 +46,9 @@ public class CzlonkostwaDAO {
             Karnety karnet = new Karnety();
             int id_karnetu = rs.getInt("id_karnetu");
             String nazwa = rs.getString("nazwa");
+            int waznosc = rs.getInt("waznosc");
             karnet.setNazwa(nazwa);
+            karnet.setWaznosc(waznosc);
 
             Klienci klient = new Klienci();
             int id_klienta = rs.getInt("id_klienta");
@@ -108,5 +110,42 @@ public class CzlonkostwaDAO {
         stmt.registerOutParameter(4, java.sql.Types.DATE);
 
         stmt.executeUpdate();
+    }
+    
+    public static void delete(Czlonkostwa cz) throws SQLException {
+        Connection con = null;
+        CallableStatement stmt = null;
+        con = JDBC_Connection.getConnections();
+        stmt = con.prepareCall("{call deleteCZLONKOSTWA(?)}");
+        stmt.setInt(1, cz.getId_czlonkostwa());
+
+        stmt.registerOutParameter(1, java.sql.Types.INTEGER);
+        
+        stmt.executeUpdate();
+
+    }
+    
+    public static void update(Czlonkostwa cz) throws SQLException {
+        Connection con = null;
+        CallableStatement stmt = null;
+        con = JDBC_Connection.getConnections();
+        stmt = con.prepareCall("{call updateCZLONKOSTWA(?,?,?,?)}");
+        stmt.setInt(1, cz.getId_czlonkostwa());
+        stmt.setInt(2, cz.karnet.getId_karnetu());
+        stmt.setDate(3, (Date) cz.getData_rozpoczecia());
+        stmt.setDate(4, (Date) cz.getData_zakonczenia());
+
+        stmt.registerOutParameter(1, java.sql.Types.INTEGER);
+        stmt.registerOutParameter(2, java.sql.Types.INTEGER);
+        stmt.registerOutParameter(3, java.sql.Types.DATE);
+        stmt.registerOutParameter(4, java.sql.Types.DATE);
+        
+        stmt.executeUpdate();
+
+    }
+    
+    public CzlonkostwaDAO()
+    {
+        
     }
 }

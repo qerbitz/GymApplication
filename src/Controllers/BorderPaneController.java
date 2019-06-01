@@ -67,7 +67,7 @@ public class BorderPaneController implements Initializable {
     @FXML
     private Button btn_karnet_delete;
     @FXML
-    private TableView karnet_tabelka;
+    private TableView<Karnety> karnet_tabelka;
     @FXML
     private TableColumn<Karnety, String> table_karnet_nazwa;
     @FXML
@@ -331,7 +331,7 @@ public class BorderPaneController implements Initializable {
     private Button btn_czlonkostwo_delete;
 
     @FXML
-    private TableView czlonkostwo_tabelka;
+    private TableView<Czlonkostwa> czlonkostwo_tabelka;
     @FXML
     private TableColumn<Czlonkostwa, Integer> table_czlonkostwo_id;
     @FXML
@@ -370,13 +370,220 @@ public class BorderPaneController implements Initializable {
             table_view_personel();      //wyswietlanie table_view
             table_view_karnety();       //wyswietlanie table_view
             table_view_czlonkostwa();   //wyswietlanie table_view
+            personel();
+            klient();
+            czlonkostwa();
+            karnety();
 
         } catch (SQLException ex) {
             Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
         }
-//ZAPISYWANIE KLIENTA
+////////////////////////////
+////////////////////////////
+////////////////////////////
+        btn_produkt_zapisz.setOnAction((ActionEvent event) -> {
+
+        });
+////////////////////////////
+////////////////////////////
+////////////////////////////
+        btn_zajecia_wyczysc.setOnAction((ActionEvent event) -> {
+
+        });
+////////////////////////////
+////////////////////////////
+////////////////////////////
+        btn_zajecia_zapisz.setOnAction((ActionEvent event) -> {                     //Zajecia
+
+            Kategorie_zajec kategoria = new Kategorie_zajec();
+            kategoria.setNazwa_zajec(text_zajecia_nazwa.getText());
+            kategoria.setRodzaj_zajec(text_zajecia_rodzaj.getText());
+            kategoria.setOpis(text_zajecia_opis.getText());
+
+            try {
+                Kategorie_zajecDAO.create(kategoria);
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        });
+////////////////////////////
+////////////////////////////
+////////////////////////////
+////////////////////////////
+////////////////////////////
+////////////////////////////
+
+        btn_zamowienia_zapisz.setOnAction((ActionEvent event) -> {
+
+        });
+
+    }
+    private void karnety()
+    {
+        btn_karnet_zapisz.setOnAction((ActionEvent event) -> {
+            Karnety karnet = new Karnety();
+            karnet.setNazwa(text_karnet_nazwa.getText());
+            karnet.setWaznosc(Integer.parseInt(text_karnet_waznosc.getText()));
+            karnet.setCena(Integer.parseInt(text_karnet_cena.getText()));
+            
+            try {
+                KarnetyDAO.create(karnet);
+                table_view_karnety();
+                table_view_czlonkostwa();
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        //
+        btn_karnet_update.setOnAction((ActionEvent event) -> {
+            Karnety karnet = new Karnety();
+            karnet = karnet_tabelka.getSelectionModel().getSelectedItem();
+            karnet.setNazwa(text_karnet_nazwa.getText());
+            karnet.setWaznosc(Integer.parseInt(text_karnet_waznosc.getText()));
+            karnet.setCena(Integer.parseInt(text_karnet_cena.getText()));
+            
+            try {
+                KarnetyDAO.update(karnet);
+                table_view_karnety();
+                table_view_czlonkostwa();
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        //
+        btn_karnet_delete.setOnAction((ActionEvent event) -> {
+            Karnety karnet = new Karnety();
+            karnet = karnet_tabelka.getSelectionModel().getSelectedItem();       
+            
+            try {
+                KarnetyDAO.delete(karnet);
+                table_view_karnety();
+                table_view_czlonkostwa();
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        //
+        btn_karnet_modify.setOnAction((ActionEvent event) -> {
+            Karnety karnet = new Karnety();
+            karnet = karnet_tabelka.getSelectionModel().getSelectedItem();  
+            text_karnet_nazwa.setText(karnet.getNazwa());
+            
+            text_karnet_waznosc.setText(Integer.toString(karnet.getWaznosc()));
+            text_karnet_cena.setText(Float.toString(karnet.getWaznosc()));
+            
+        });
+        //
+        btn_karnet_wyczysc.setOnAction((ActionEvent event) -> {
+            text_karnet_nazwa.clear();
+            text_karnet_waznosc.clear();
+            text_karnet_cena.clear();
+        });
+    }
+    
+    private void czlonkostwa() {
+        btn_czlonkostwo_zapisz.setOnAction((ActionEvent event) -> {                     //Czlonkostwa
+
+            Czlonkostwa czlonkostwo = new Czlonkostwa();
+            czlonkostwo.setKarnet(choice_czlonkostwo_karnet.getValue());
+
+            int ile_dodac = czlonkostwo.getKarnet().getWaznosc();
+            System.out.println(ile_dodac);
+
+            Date d = new Date();
+            java.sql.Date sqlactualDate = new java.sql.Date(d.getTime());
+
+            Date dt = new Date();
+            Calendar c = Calendar.getInstance();
+            c.setTime(dt);
+            c.add(Calendar.DATE, ile_dodac);
+            dt = c.getTime();
+
+            java.sql.Date sqlendDate = new java.sql.Date(dt.getTime());
+
+
+            czlonkostwo.setKlient(choice_czlonkostwo_klient.getValue());
+            czlonkostwo.setData_rozpoczecia(sqlactualDate);
+            czlonkostwo.setData_zakonczenia(sqlendDate);
+
+            
+            try {
+                CzlonkostwaDAO.create(czlonkostwo);
+                table_view_czlonkostwa();
+                personel_tabelka.setItems(FXCollections.observableList(personelDAO.getAll()));
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        });
+        ////
+        btn_czlonkostwo_delete.setOnAction((ActionEvent event) -> {
+            Czlonkostwa czlonkostwo = new Czlonkostwa();
+            czlonkostwo = czlonkostwo_tabelka.getSelectionModel().getSelectedItem();
+            czlonkostwo.setId_czlonkostwa(czlonkostwo.getId_czlonkostwa());
+
+            try {
+                CzlonkostwaDAO.delete(czlonkostwo);
+                czlonkostwo_tabelka.setItems(FXCollections.observableList(czlonkostwaDAO.getAll()));
+                table_view_czlonkostwa();
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        ///
+        btn_czlonkostwo_update.setOnAction((ActionEvent event) -> {
+            Czlonkostwa czlonkostwo = new Czlonkostwa();
+            czlonkostwo = czlonkostwo_tabelka.getSelectionModel().getSelectedItem();         
+            czlonkostwo.setKarnet(choice_czlonkostwo_karnet.getValue());
+            int pomoc = czlonkostwo.getId_czlonkostwa();
+            czlonkostwo.setId_czlonkostwa(pomoc);
+
+            int ile_dodac = czlonkostwo.getKarnet().getWaznosc();
+
+            Date d = new Date();
+            java.sql.Date sqlactualDate = new java.sql.Date(d.getTime());
+
+            Date dt = new Date();
+            Calendar c = Calendar.getInstance();
+            c.setTime(dt);
+            c.add(Calendar.DATE, ile_dodac);
+            dt = c.getTime();
+
+            java.sql.Date sqlendDate = new java.sql.Date(dt.getTime());
+            
+            System.out.println(ile_dodac);
+
+            czlonkostwo.setData_rozpoczecia(sqlactualDate);
+            czlonkostwo.setData_zakonczenia(sqlendDate);
+            
+ 
+            try {
+                CzlonkostwaDAO.update(czlonkostwo);
+                czlonkostwo_tabelka.setItems(FXCollections.observableList(czlonkostwaDAO.getAll()));
+                table_view_czlonkostwa();
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+    }
+
+    private void klient() {
+        //ZAPISYWANIE KLIENTA
         btn_klient_zapisz.setOnAction((ActionEvent event) -> {
             Klienci klient = new Klienci();
             klient.setImie(text_klient_imie.getText());
@@ -482,10 +689,9 @@ public class BorderPaneController implements Initializable {
             }
 
         });
-////////////////////////////
-////////Personel////////////
-////////////////////////////
-/*
+    }
+
+    private void personel() {
         btn_personel_zapisz.setOnAction((ActionEvent event) -> {
             Personel pracownik = new Personel();
             pracownik.setImie(text_personel_imie.getText());
@@ -515,11 +721,11 @@ public class BorderPaneController implements Initializable {
             } catch (SQLException ex) {
                 Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
+
         });
 //Aktualizacja personelu        
         btn_personel_update.setOnAction((ActionEvent event) -> {
-            
+
             Personel pracownik = new Personel();
             pracownik = personel_tabelka.getSelectionModel().getSelectedItem();
             pracownik.setImie(text_personel_imie.getText());
@@ -535,7 +741,7 @@ public class BorderPaneController implements Initializable {
             adres.setUlica(text_personel_ulica.getText());
             adres.setNr_domu(text_personel_nr_domu.getText());
             adres.setKod_pocztowy(text_personel_kod_pocztowy.getText());
-            
+
             try {
                 PersonelDAO.update(pracownik);
                 AdresyDAO.update(adres);
@@ -561,186 +767,7 @@ public class BorderPaneController implements Initializable {
 
             Adresy adres = new Adresy();
             adres = personel_tabelka.getSelectionModel().getSelectedItem();
-            adres.setId_adresu(pracownik.getAdres().getId_adresu());           
-
-            try {
-                AdresyDAO.delete(adres);
-                personel_tabelka.setItems(FXCollections.observableList(personelDAO.getAll()));
-                table_view_personel();
-                table_view_czlonkostwa();
-            } catch (SQLException ex) {
-                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException ex) {
-                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });*/
-personel();
-////////////////////////////
-////////////////////////////
-////////////////////////////
-        btn_produkt_zapisz.setOnAction((ActionEvent event) -> {
-
-        });
-////////////////////////////
-////////////////////////////
-////////////////////////////
-        btn_zajecia_wyczysc.setOnAction((ActionEvent event) -> {
-
-        });
-////////////////////////////
-////////////////////////////
-////////////////////////////
-        btn_zajecia_zapisz.setOnAction((ActionEvent event) -> {                     //Zajecia
-
-            Kategorie_zajec kategoria = new Kategorie_zajec();
-            kategoria.setNazwa_zajec(text_zajecia_nazwa.getText());
-            kategoria.setRodzaj_zajec(text_zajecia_rodzaj.getText());
-            kategoria.setOpis(text_zajecia_opis.getText());
-
-            try {
-                Kategorie_zajecDAO.create(kategoria);
-            } catch (SQLException ex) {
-                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        });
-////////////////////////////
-////////////////////////////
-////////////////////////////
-        btn_karnet_zapisz.setOnAction((ActionEvent event) -> {
-
-        });
-////////////////////////////
-////////////////////////////
-////////////////////////////
-        btn_czlonkostwo_zapisz.setOnAction((ActionEvent event) -> {                     //Czlonkostwa
-
-            Czlonkostwa czlonkostwo = new Czlonkostwa();
-            czlonkostwo.setKarnet(choice_czlonkostwo_karnet.getValue());
-
-            int ile_dodac = czlonkostwo.getKarnet().getWaznosc();
-            System.out.println(ile_dodac);
-
-            Date d = new Date();
-            java.sql.Date sqlactualDate = new java.sql.Date(d.getTime());
-
-            Date dt = new Date();
-            Calendar c = Calendar.getInstance();
-            c.setTime(dt);
-            c.add(Calendar.DATE, ile_dodac);
-            dt = c.getTime();
-
-            java.sql.Date sqlendDate = new java.sql.Date(dt.getTime());
-
-            if (d.getTime() > dt.getTime()) {
-                System.out.println("wieksza");
-            } else {
-                System.out.println("mniejsza");
-            }
-
-            czlonkostwo.setKlient(choice_czlonkostwo_klient.getValue());
-            czlonkostwo.setData_rozpoczecia(sqlactualDate);
-            czlonkostwo.setData_zakonczenia(sqlendDate);
-
-            System.out.println(sqlendDate);
-
-            try {
-                CzlonkostwaDAO.create(czlonkostwo);
-                table_view_czlonkostwa();
-            } catch (SQLException ex) {
-                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException ex) {
-                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        });
-////////////////////////////
-////////////////////////////
-////////////////////////////
-        btn_zamowienia_zapisz.setOnAction((ActionEvent event) -> {
-
-        });
-
-    }
-    
-    private void personel()
-    {
-        btn_personel_zapisz.setOnAction((ActionEvent event) -> {
-            Personel pracownik = new Personel();
-            pracownik.setImie(text_personel_imie.getText());
-            pracownik.setNazwisko(text_personel_nazwisko.getText());
-            pracownik.setNr_telefonu(text_personel_telefon.getText());
-            pracownik.setFunkcja(text_personel_funkcja.getText());
-
-            //pozyskanie daty urodzenia
-            java.util.Date date
-                    = java.util.Date.from(dataur_personel.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-
-            pracownik.setData_urodzenia(sqlDate);
-            //
-
-            Adresy adres = new Adresy();
-            adres.setPowiat(text_personel_powiat.getText());
-            adres.setWojewodztwo(text_personel_wojewodztwo.getText());
-            adres.setMiejscowosc(text_personel_miejscowosc.getText());
-            adres.setUlica(text_personel_ulica.getText());
-            adres.setNr_domu(text_personel_nr_domu.getText());
-            adres.setKod_pocztowy(text_personel_kod_pocztowy.getText());
-            try {
-                AdresyDAO.create(adres);
-                PersonelDAO.create(pracownik);
-                table_view_personel();
-            } catch (SQLException ex) {
-                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        
-        });
-//Aktualizacja personelu        
-        btn_personel_update.setOnAction((ActionEvent event) -> {
-            
-            Personel pracownik = new Personel();
-            pracownik = personel_tabelka.getSelectionModel().getSelectedItem();
-            pracownik.setImie(text_personel_imie.getText());
-            pracownik.setNazwisko(text_personel_nazwisko.getText());
-            pracownik.setNr_telefonu(text_personel_telefon.getText());
-            pracownik.setFunkcja(text_personel_funkcja.getText());
-
-            Adresy adres = new Adresy();
             adres.setId_adresu(pracownik.getAdres().getId_adresu());
-            adres.setPowiat(text_personel_powiat.getText());
-            adres.setWojewodztwo(text_personel_wojewodztwo.getText());
-            adres.setMiejscowosc(text_personel_miejscowosc.getText());
-            adres.setUlica(text_personel_ulica.getText());
-            adres.setNr_domu(text_personel_nr_domu.getText());
-            adres.setKod_pocztowy(text_personel_kod_pocztowy.getText());
-            
-            try {
-                PersonelDAO.update(pracownik);
-                AdresyDAO.update(adres);
-                personel_tabelka.setItems(FXCollections.observableList(personelDAO.getAll()));
-                table_view_personel();
-                klient_wyczysc();
-            } catch (SQLException ex) {
-                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-//Przygotowanie przed modyfikacja        
-        btn_personel_modify.setOnAction((ActionEvent event) -> {
-            personel_pomoc();
-        });
-//Czyszczenie textfieldow
-        btn_personel_wyczysc.setOnAction((ActionEvent event) -> {
-            personel_wyczysc();
-        });
-//Usuwanie pracownika
-        btn_personel_delete.setOnAction((ActionEvent event) -> {
-            Personel pracownik = new Personel();
-            pracownik = personel_tabelka.getSelectionModel().getSelectedItem();
-
-            Adresy adres = new Adresy();
-            adres = personel_tabelka.getSelectionModel().getSelectedItem();
-            adres.setId_adresu(pracownik.getAdres().getId_adresu());           
 
             try {
                 AdresyDAO.delete(adres);
@@ -754,27 +781,26 @@ personel();
             }
         });
     }
-    
-    private void personel_pomoc()
-    {
-            Personel pracownik = new Personel();
-            pracownik = personel_tabelka.getSelectionModel().getSelectedItem();
-            text_personel_imie.setText(pracownik.getImie());
-            text_personel_nazwisko.setText(pracownik.getNazwisko());
-            text_personel_telefon.setText(pracownik.getNr_telefonu());
-            text_personel_funkcja.setText(pracownik.getFunkcja());
-            
-            Adresy adres = new Adresy();
-            adres = klient_tabelka.getSelectionModel().getSelectedItem();
-            text_personel_wojewodztwo.setText(pracownik.getAdres().getWojewodztwo());
-            text_personel_powiat.setText(pracownik.getAdres().getPowiat());
-            text_personel_miejscowosc.setText(pracownik.getAdres().getMiejscowosc());
-            text_personel_ulica.setText(pracownik.getAdres().getUlica());
-            text_personel_nr_domu.setText(pracownik.getAdres().getNr_domu());
-            text_personel_kod_pocztowy.setText(pracownik.getAdres().getKod_pocztowy());
-            
+
+    private void personel_pomoc() {
+        Personel pracownik = new Personel();
+        pracownik = personel_tabelka.getSelectionModel().getSelectedItem();
+        text_personel_imie.setText(pracownik.getImie());
+        text_personel_nazwisko.setText(pracownik.getNazwisko());
+        text_personel_telefon.setText(pracownik.getNr_telefonu());
+        text_personel_funkcja.setText(pracownik.getFunkcja());
+
+        Adresy adres = new Adresy();
+        adres = klient_tabelka.getSelectionModel().getSelectedItem();
+        text_personel_wojewodztwo.setText(pracownik.getAdres().getWojewodztwo());
+        text_personel_powiat.setText(pracownik.getAdres().getPowiat());
+        text_personel_miejscowosc.setText(pracownik.getAdres().getMiejscowosc());
+        text_personel_ulica.setText(pracownik.getAdres().getUlica());
+        text_personel_nr_domu.setText(pracownik.getAdres().getNr_domu());
+        text_personel_kod_pocztowy.setText(pracownik.getAdres().getKod_pocztowy());
+
     }
-    
+
     private void klient_wyczysc() {
         text_klient_imie.clear();
         text_klient_nazwisko.clear();
@@ -788,7 +814,7 @@ personel();
         text_klient_kod_pocztowy.clear();
         dataur_klient.setValue(null);
     }
-    
+
     private void personel_wyczysc() {
         text_personel_imie.clear();
         text_personel_nazwisko.clear();
