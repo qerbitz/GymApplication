@@ -569,8 +569,8 @@ public class BorderPaneController implements Initializable {
             Rezerwacje_zajec rezerwacja = new Rezerwacje_zajec();
             rezerwacja.setZajecia(choice_rezerwacje_zajecia.getValue());
             rezerwacja.setPracownik(choice_rezerwacje_pracownik.getValue());
-            //rezerwacja.setDzien(choice_rezerwacje_dzien.getValue());
-            //rezerwacja.setPracownik(choice_rezerwacje_pracownik.getValue());
+            rezerwacja.setDzien((String) choice_rezerwacje_dzien.getValue());
+            rezerwacja.setGodzina((String) choice_rezerwacje_godzina.getValue());
             rezerwacja.setIlosc(Integer.parseInt(text_rezerwacje_ilosc.getText()));
 
             try {
@@ -1052,6 +1052,8 @@ public class BorderPaneController implements Initializable {
         table_rezerwacje_id.setCellValueFactory(new PropertyValueFactory<>("id_rezerwacji"));
         table_rezerwacje_nazwa.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getZajecia().getNazwa_zajec()));
         table_rezerwacje_trener.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getPracownik().getImie() + " " + pomoc.getValue().getPracownik().getNazwisko()));
+        table_rezerwacje_dzien.setCellValueFactory(new PropertyValueFactory<>("dzien"));
+        table_rezerwacje_godzina.setCellValueFactory(new PropertyValueFactory<>("godzina"));
         table_rezerwacje_ilosc.setCellValueFactory(new PropertyValueFactory<>("ilosc"));
         rezerwacje_tabelka.setItems(FXCollections.observableList(rezerwacjaDAO.getAll()));
     }

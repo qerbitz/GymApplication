@@ -36,8 +36,8 @@ public class Rezerwacje_zajecDAO {
         while (rs.next()) {
             Rezerwacje_zajec rezerwacja = new Rezerwacje_zajec();
             int id_rezerwacji = rs.getInt("id_rezerwacji");
-            //String dzien = rs.getString("dzien");
-            //String godzina = rs.getString("dzien");
+            String dzien = rs.getString("dzien");
+            String godzina = rs.getString("godzina");
             int ilosc = rs.getInt("max_ilosc_osob");
 
             Personel pracownik = new Personel();
@@ -56,8 +56,8 @@ public class Rezerwacje_zajecDAO {
             rezerwacja.setId_rezerwacji(id_rezerwacji);
             rezerwacja.setZajecia(kategoria);
             rezerwacja.setPracownik(pracownik);
-            //rezerwacja.setDzien(dzien);
-            //rezerwacja.setGodzina(godzina);
+            rezerwacja.setDzien(dzien);
+            rezerwacja.setGodzina(godzina);
             rezerwacja.setIlosc(ilosc);
 
             list.add(rezerwacja);
