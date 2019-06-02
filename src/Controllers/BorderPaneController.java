@@ -50,6 +50,7 @@ import javafx.util.StringConverter;
 public class BorderPaneController implements Initializable {
 
     //Zakladka Karnety
+    
     @FXML
     private TextField text_karnet_nazwa;
     @FXML
@@ -352,7 +353,7 @@ public class BorderPaneController implements Initializable {
     private TableColumn<Czlonkostwa, Date> table_czlonkostwo_datado;
     @FXML
     private TableColumn<Czlonkostwa, String> table_czlonkostwo_status;
-
+    
     private final Kategorie_zajecDAO catDAO = new Kategorie_zajecDAO();
     private final KlienciDAO klientDAO = new KlienciDAO();
     private final PersonelDAO personelDAO = new PersonelDAO();
