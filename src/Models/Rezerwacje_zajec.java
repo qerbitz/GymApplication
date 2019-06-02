@@ -5,7 +5,6 @@
  */
 package Models;
 
-import java.sql.Time;
 
 /**
  *
@@ -14,30 +13,29 @@ import java.sql.Time;
 public class Rezerwacje_zajec {
     
     private int id_rezerwacji;
+      
+    public Personel pracownik;
     
-    private int id_klienta;
-    
-    private int id_pracownika;
-    
-    private int id_zajec;
+    public Kategorie_zajec zajecia;
     
     private String dzien;
     
-    private Time godzina_rozpoczecia;
+    private String godzina;
     
-    private Time godzina_zakonczenia;
-    
-    private int max_ilosc_osob;
+    private int ilosc;
 
-    public Rezerwacje_zajec(int id_rezerwacji, int id_klienta, int id_pracownika, int id_zajec, String dzien, Time godzina_rozpoczecia, Time godzina_zakonczenia, int max_ilosc_osob) {
+    public Rezerwacje_zajec(int id_rezerwacji, Personel pracownik, Kategorie_zajec zajecia, String dzien, String godzina, int ilosc) {
         this.id_rezerwacji = id_rezerwacji;
-        this.id_klienta = id_klienta;
-        this.id_pracownika = id_pracownika;
-        this.id_zajec = id_zajec;
+        this.pracownik = pracownik;
+        this.zajecia = zajecia;
         this.dzien = dzien;
-        this.godzina_rozpoczecia = godzina_rozpoczecia;
-        this.godzina_zakonczenia = godzina_zakonczenia;
-        this.max_ilosc_osob = max_ilosc_osob;
+        this.godzina = godzina;
+        this.ilosc = ilosc;
+    }
+
+    public Rezerwacje_zajec()
+    {
+        
     }
 
     public int getId_rezerwacji() {
@@ -48,28 +46,20 @@ public class Rezerwacje_zajec {
         this.id_rezerwacji = id_rezerwacji;
     }
 
-    public int getId_klienta() {
-        return id_klienta;
+    public Personel getPracownik() {
+        return pracownik;
     }
 
-    public void setId_klienta(int id_klienta) {
-        this.id_klienta = id_klienta;
+    public void setPracownik(Personel pracownik) {
+        this.pracownik = pracownik;
     }
 
-    public int getId_pracownika() {
-        return id_pracownika;
+    public Kategorie_zajec getZajecia() {
+        return zajecia;
     }
 
-    public void setId_pracownika(int id_pracownika) {
-        this.id_pracownika = id_pracownika;
-    }
-
-    public int getId_zajec() {
-        return id_zajec;
-    }
-
-    public void setId_zajec(int id_zajec) {
-        this.id_zajec = id_zajec;
+    public void setZajecia(Kategorie_zajec zajecia) {
+        this.zajecia = zajecia;
     }
 
     public String getDzien() {
@@ -80,29 +70,22 @@ public class Rezerwacje_zajec {
         this.dzien = dzien;
     }
 
-    public Time getGodzina_rozpoczecia() {
-        return godzina_rozpoczecia;
+    public String getGodzina() {
+        return godzina;
     }
 
-    public void setGodzina_rozpoczecia(Time godzina_rozpoczecia) {
-        this.godzina_rozpoczecia = godzina_rozpoczecia;
+    public void setGodzina(String godzina) {
+        this.godzina = godzina;
     }
 
-    public Time getGodzina_zakonczenia() {
-        return godzina_zakonczenia;
+    public int getIlosc() {
+        return ilosc;
     }
 
-    public void setGodzina_zakonczenia(Time godzina_zakonczenia) {
-        this.godzina_zakonczenia = godzina_zakonczenia;
+    public void setIlosc(int ilosc) {
+        this.ilosc = ilosc;
     }
-
-    public int getMax_ilosc_osob() {
-        return max_ilosc_osob;
-    }
-
-    public void setMax_ilosc_osob(int max_ilosc_osob) {
-        this.max_ilosc_osob = max_ilosc_osob;
-    }
+    
     
     
 }
