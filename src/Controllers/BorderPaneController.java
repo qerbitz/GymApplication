@@ -263,9 +263,15 @@ public class BorderPaneController implements Initializable {
     private Button btn_zajecia_zapisz;
     @FXML
     private Button btn_zajecia_wyczysc;
+    @FXML
+    private Button btn_zajecia_delete;
+    @FXML
+    private Button btn_zajecia_update;
+    @FXML
+    private Button btn_zajecia_modify;
 
     @FXML
-    private TableView zajecia_tabelka;
+    private TableView<Kategorie_zajec> zajecia_tabelka;
     @FXML
     private TableColumn<Kategorie_zajec, String> table_zajecia_id;
     @FXML
@@ -374,51 +380,13 @@ public class BorderPaneController implements Initializable {
             klient();
             czlonkostwa();
             karnety();
+            Kategorie_zajec();
 
         } catch (SQLException ex) {
             Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
         }
-////////////////////////////
-////////////////////////////
-////////////////////////////
-        btn_produkt_zapisz.setOnAction((ActionEvent event) -> {
-
-        });
-////////////////////////////
-////////////////////////////
-////////////////////////////
-        btn_zajecia_wyczysc.setOnAction((ActionEvent event) -> {
-
-        });
-////////////////////////////
-////////////////////////////
-////////////////////////////
-        btn_zajecia_zapisz.setOnAction((ActionEvent event) -> {                     //Zajecia
-
-            Kategorie_zajec kategoria = new Kategorie_zajec();
-            kategoria.setNazwa_zajec(text_zajecia_nazwa.getText());
-            kategoria.setRodzaj_zajec(text_zajecia_rodzaj.getText());
-            kategoria.setOpis(text_zajecia_opis.getText());
-
-            try {
-                Kategorie_zajecDAO.create(kategoria);
-            } catch (SQLException ex) {
-                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        });
-////////////////////////////
-////////////////////////////
-////////////////////////////
-////////////////////////////
-////////////////////////////
-////////////////////////////
-
-        btn_zamowienia_zapisz.setOnAction((ActionEvent event) -> {
-
-        });
 
     }
     private void karnety()
@@ -487,6 +455,69 @@ public class BorderPaneController implements Initializable {
             text_karnet_nazwa.clear();
             text_karnet_waznosc.clear();
             text_karnet_cena.clear();
+        });
+    }
+    private void Kategorie_zajec()
+    {
+        btn_zajecia_zapisz.setOnAction((ActionEvent event) -> {                     //Zajecia
+
+            Kategorie_zajec kategoria = new Kategorie_zajec();
+            kategoria.setNazwa_zajec(text_zajecia_nazwa.getText());
+            kategoria.setRodzaj_zajec(text_zajecia_rodzaj.getText());
+            kategoria.setOpis(text_zajecia_opis.getText());
+
+            try {
+                Kategorie_zajecDAO.create(kategoria);
+                table_view_kategorii();
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        });
+        
+        btn_zajecia_update.setOnAction((ActionEvent event) -> {                     //Zajecia
+
+            Kategorie_zajec kategoria = new Kategorie_zajec();
+            kategoria = zajecia_tabelka.getSelectionModel().getSelectedItem();
+            kategoria.setNazwa_zajec(text_zajecia_nazwa.getText());
+            kategoria.setRodzaj_zajec(text_zajecia_rodzaj.getText());
+            kategoria.setOpis(text_zajecia_opis.getText());
+
+            try {
+                Kategorie_zajecDAO.update(kategoria);
+                table_view_kategorii();
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        });
+        
+        btn_zajecia_delete.setOnAction((ActionEvent event) -> {                    
+
+            Kategorie_zajec kategoria = new Kategorie_zajec();
+            kategoria = zajecia_tabelka.getSelectionModel().getSelectedItem();
+            try {
+                Kategorie_zajecDAO.delete(kategoria);
+                table_view_kategorii();
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        });
+        
+        btn_zajecia_modify.setOnAction((ActionEvent event) -> {                  
+            Kategorie_zajec kategoria = new Kategorie_zajec();
+            kategoria = zajecia_tabelka.getSelectionModel().getSelectedItem();  
+            text_zajecia_nazwa.setText(kategoria.getNazwa_zajec());
+            text_zajecia_rodzaj.setText(kategoria.getRodzaj_zajec());
+            text_zajecia_opis.setText(kategoria.getOpis());
+
+        });
+        
+        btn_zajecia_wyczysc.setOnAction((ActionEvent event) -> {                    
+            text_zajecia_nazwa.clear();
+            text_zajecia_rodzaj.clear();
+            text_zajecia_opis.clear();
         });
     }
     

@@ -69,6 +69,39 @@ public class Kategorie_zajecDAO {
         stmt.executeUpdate();
     }
     
+    public static void delete(Kategorie_zajec k) throws SQLException {
+        Connection con = null;
+        CallableStatement stmt = null;
+        con = JDBC_Connection.getConnections();
+        stmt = con.prepareCall("{call deleteKATEGORIE_ZAJEC(?)}");
+        stmt.setInt(1, k.getId_zajec());
+
+        stmt.registerOutParameter(1, java.sql.Types.INTEGER);
+        
+        stmt.executeUpdate();
+
+    }
+    
+    public static void update(Kategorie_zajec k) throws SQLException {
+
+        Connection con = null;
+        CallableStatement stmt = null;
+
+        con = JDBC_Connection.getConnections();
+        stmt = con.prepareCall("{call updateKATEGORIE_ZAJEC(?,?,?,?)}");
+        stmt.setInt(1, k.getId_zajec());
+        stmt.setString(2, k.getNazwa_zajec());
+        stmt.setString(3, k.getRodzaj_zajec());
+        stmt.setString(4, k.getOpis());
+
+        stmt.registerOutParameter(1, java.sql.Types.INTEGER);
+        stmt.registerOutParameter(2, java.sql.Types.VARCHAR);
+        stmt.registerOutParameter(3, java.sql.Types.VARCHAR);
+        stmt.registerOutParameter(4, java.sql.Types.VARCHAR);
+
+        stmt.executeUpdate();
+    }
+    
     public Kategorie_zajecDAO()
     {
         
