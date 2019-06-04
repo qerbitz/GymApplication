@@ -27,7 +27,6 @@ public class main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        //loader.setLocation(this.getClass().getResource("/FXML/Logowanie.fxml"));
         loader.setLocation(this.getClass().getResource("/FXML/BorderPane.fxml"));
         AnchorPane anchorPane = loader.load();
 

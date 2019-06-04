@@ -48,6 +48,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
@@ -413,7 +414,7 @@ public class BorderPaneController implements Initializable {
      * @param url
      * @param rb
      */
-    @Override
+    
 
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -593,25 +594,16 @@ public class BorderPaneController implements Initializable {
         });
         
         btn_rezerwacje_delete.setOnAction((ActionEvent event) -> {
-            Rezerwacje_zajec rezerwacja = new Rezerwacje_zajec();    
-            rezerwacja = rezerwacje_tabelka.getSelectionModel().getSelectedItem();
-            int pomoc = rezerwacja.getId_rezerwacji();
-            System.out.println(pomoc);
+        
             
-            FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/klienci.fxml"));
-		Parent application;
-	
-		Scene applicationScene = new Scene(application);
-		Stage primarystage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		primarystage.setScene(applicationScene);
-		primarystage.show();
-            try {
-                application = (Parent) loader.load();
-            } catch (IOException ex) {
-                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+            
+            
         });
+        
+
+
+       
     }
 
     private void czlonkostwa() {
