@@ -464,356 +464,6 @@
                   </SplitPane>
                </content>
             </Tab>
-            <Tab text="Produkty">
-               <content>
-                  <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0">
-                     <items>
-                        <AnchorPane maxWidth="400.0">
-                           <children>
-                              <GridPane prefHeight="189.0" prefWidth="335.0">
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="105.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="180.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                    <Label text="Nazwa">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Georgia" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Cena" GridPane.rowIndex="1">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Georgia" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Stan magazynu" GridPane.rowIndex="2">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Georgia" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField fx:id="text_produkt_nazwa" prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" />
-                                    <TextField fx:id="text_produkt_cena" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField fx:id="text_produkt_stan" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                 </children>
-                              </GridPane>
-                              <Button fx:id="btn_produkt_zapisz" layoutX="242.0" layoutY="248.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zapisz">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="btn_produkt_wyczysc" layoutX="50.0" layoutY="248.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Wyczysc">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <TableView fx:id="produkt_tabelka" prefHeight="621.0" prefWidth="900.0">
-                                 <columns>
-                                    <TableColumn fx:id="table_produkt_id" prefWidth="225.0" text="Lp." />
-                                    <TableColumn fx:id="table_produkt_nazwa" prefWidth="225.0" text="Nazwa" />
-                                    <TableColumn fx:id="table_produkt_cena" prefWidth="225.0" text="Cena" />
-                                    <TableColumn fx:id="table_produkt_stan" prefWidth="225.0" text="Stan magazynu" />
-                                 </columns>
-                              </TableView>
-                           </children>
-                        </AnchorPane>
-                     </items>
-                  </SplitPane>
-               </content>
-            </Tab>
-            <Tab text="Zamowienia">
-               <content>
-                  <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0">
-                     <items>
-                        <AnchorPane maxWidth="400.0">
-                           <children>
-                              <GridPane prefHeight="189.0" prefWidth="335.0">
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="105.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="180.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                    <Label text="Produkt">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Georgia" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Klient" GridPane.rowIndex="1">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Georgia" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Data kupna" GridPane.rowIndex="2">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Georgia" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Ilosc" GridPane.rowIndex="3">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Georgia" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <DatePicker fx:id="data_kupna" prefHeight="25.0" prefWidth="185.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <TextField fx:id="text_zamowienia_ilosc" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <ChoiceBox fx:id="choice_zamowienia_produkt" prefHeight="31.0" prefWidth="186.0" GridPane.columnIndex="1" />
-                                    <ChoiceBox fx:id="choice_zamowienia_klient" prefHeight="31.0" prefWidth="186.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                 </children>
-                              </GridPane>
-                              <Button fx:id="btn_zamowienia_zapisz" layoutX="117.0" layoutY="253.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zapisz">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="btn_zamowienia_wyczysc" layoutX="275.0" layoutY="274.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Wyczysc">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <TableView fx:id="zamowienia_tabelka" prefHeight="621.0" prefWidth="900.0">
-                                 <columns>
-                                    <TableColumn fx:id="table_zamowienia_id" prefWidth="225.0" text="Lp." />
-                                    <TableColumn fx:id="table_zamowienia_produkt" prefWidth="225.0" text="Produkt" />
-                                    <TableColumn fx:id="table_zamowienia_klient" prefWidth="225.0" text="Klient" />
-                                    <TableColumn prefWidth="225.0" text="Data kupna" />
-                                 </columns>
-                              </TableView>
-                           </children>
-                        </AnchorPane>
-                     </items>
-                  </SplitPane>
-               </content>
-            </Tab>
-            <Tab text="Zajecia">
-               <content>
-                  <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0">
-                     <items>
-                        <AnchorPane maxWidth="400.0">
-                           <children>
-                              <GridPane prefHeight="189.0" prefWidth="335.0">
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="105.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="180.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                    <Label text="Nazwa zajęć">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Georgia" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Rodzaj zajęć" GridPane.rowIndex="1">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Georgia" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Opis zajęć" GridPane.rowIndex="2">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Georgia" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField fx:id="text_zajecia_nazwa" prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" />
-                                    <TextField fx:id="text_zajecia_rodzaj" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField fx:id="text_zajecia_opis" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                 </children>
-                              </GridPane>
-                              <Button fx:id="btn_zajecia_zapisz" layoutX="217.0" layoutY="247.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zapisz">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="btn_zajecia_wyczysc" layoutX="68.0" layoutY="207.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Wyczysc">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="btn_zajecia_modify" layoutX="252.0" layoutY="357.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Modyfikuj">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="btn_zajecia_update" layoutX="97.0" layoutY="377.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zaaktualizuj">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="btn_zajecia_delete" layoutX="37.0" layoutY="311.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Usun rekord">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <TableView fx:id="zajecia_tabelka" prefHeight="621.0" prefWidth="900.0">
-                                 <columns>
-                                    <TableColumn fx:id="table_zajecia_id" prefWidth="75.0" text="Lp." />
-                                    <TableColumn fx:id="table_zajecia_nazwa" prefWidth="75.0" text="Nazwa zajęć" />
-                                    <TableColumn fx:id="table_zajecia_rodzaj" prefWidth="75.0" text="Rodzaj zajęć" />
-                                    <TableColumn fx:id="table_zajecia_opis" prefWidth="75.0" text="Opis zajec" />
-                                 </columns>
-                              </TableView>
-                           </children>
-                        </AnchorPane>
-                     </items>
-                  </SplitPane>
-               </content>
-            </Tab>
-            <Tab text="Harmonogram zajęć">
-               <content>
-                  <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0">
-                     <items>
-                        <AnchorPane maxWidth="400.0">
-                           <children>
-                              <GridPane prefHeight="189.0" prefWidth="335.0">
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="105.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="180.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                    <Label text="Pracownik">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Georgia" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Zajęcia" GridPane.rowIndex="1">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Georgia" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Dzien" GridPane.rowIndex="2">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Georgia" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Godzina" GridPane.rowIndex="3">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Georgia" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <ChoiceBox fx:id="choice_rezerwacje_pracownik" prefHeight="31.0" prefWidth="187.0" GridPane.columnIndex="1" />
-                                    <ChoiceBox fx:id="choice_rezerwacje_zajecia" prefHeight="31.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <ChoiceBox fx:id="choice_rezerwacje_dzien" prefHeight="31.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <ChoiceBox fx:id="choice_rezerwacje_godzina" prefHeight="31.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Label text="Max Ilosc Osob" GridPane.rowIndex="4">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Georgia" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField fx:id="text_rezerwacje_ilosc" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                 </children>
-                              </GridPane>
-                              <Button fx:id="btn_rezerwacje_delete" layoutX="101.0" layoutY="278.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Usun rekord">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="btn_rezerwacje_zapisz" layoutX="224.0" layoutY="278.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zapisz">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="btn_rezerwacje_update" layoutX="235.0" layoutY="377.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Aktualizuj">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <TableView fx:id="rezerwacje_tabelka" prefHeight="621.0" prefWidth="900.0">
-                                 <columns>
-                                    <TableColumn fx:id="table_rezerwacje_id" prefWidth="150.0" text="Id" />
-                                    <TableColumn fx:id="table_rezerwacje_nazwa" prefWidth="150.0" text="Nazwa zajec" />
-                                    <TableColumn fx:id="table_rezerwacje_trener" prefWidth="150.0" text="Trener" />
-                                    <TableColumn fx:id="table_rezerwacje_dzien" prefWidth="150.0" text="Dzien" />
-                                    <TableColumn fx:id="table_rezerwacje_godzina" prefWidth="150.0" text="Godzina" />
-                                    <TableColumn fx:id="table_rezerwacje_ilosc" prefWidth="150.0" text="Max ilosc osob" />
-                                 </columns>
-                              </TableView>
-                           </children>
-                        </AnchorPane>
-                     </items>
-                  </SplitPane>
-               </content>
-            </Tab>
             <Tab text="Członkostwa">
                <content>
                   <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0">
@@ -897,6 +547,197 @@
                      </items>
                   </SplitPane>
                </content></Tab>
+            <Tab text="Zajecia">
+               <content>
+                  <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0">
+                     <items>
+                        <AnchorPane maxWidth="400.0">
+                           <children>
+                              <GridPane prefHeight="189.0" prefWidth="335.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="105.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="180.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="Nazwa zajęć">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Georgia" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Rodzaj zajęć" GridPane.rowIndex="1">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Georgia" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Opis zajęć" GridPane.rowIndex="2">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Georgia" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="text_zajecia_nazwa" prefHeight="25.0" prefWidth="136.0" GridPane.columnIndex="1" />
+                                    <TextField fx:id="text_zajecia_rodzaj" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="text_zajecia_opis" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                 </children>
+                              </GridPane>
+                              <Button fx:id="btn_zajecia_zapisz" layoutX="254.0" layoutY="207.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zapisz">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btn_zajecia_wyczysc" layoutX="147.0" layoutY="207.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Wyczysc">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btn_zajecia_modify" layoutX="147.0" layoutY="258.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Modyfikuj">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btn_zajecia_update" layoutX="254.0" layoutY="258.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zaaktualizuj">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btn_zajecia_delete" layoutX="36.0" layoutY="238.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Usun rekord">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="zajecia_tabelka" prefHeight="621.0" prefWidth="900.0">
+                                 <columns>
+                                    <TableColumn fx:id="table_zajecia_id" prefWidth="225.0" text="Lp." />
+                                    <TableColumn fx:id="table_zajecia_nazwa" prefWidth="225.0" text="Nazwa zajęć" />
+                                    <TableColumn fx:id="table_zajecia_rodzaj" prefWidth="225.0" text="Rodzaj zajęć" />
+                                    <TableColumn fx:id="table_zajecia_opis" prefWidth="225.0" text="Opis zajec" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                     </items>
+                  </SplitPane>
+               </content>
+            </Tab>
+            <Tab text="Harmonogram zajęć">
+               <content>
+                  <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0">
+                     <items>
+                        <AnchorPane maxWidth="400.0">
+                           <children>
+                              <GridPane prefHeight="189.0" prefWidth="335.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="105.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="180.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="Pracownik">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Georgia" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Zajęcia" GridPane.rowIndex="1">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Georgia" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Dzien" GridPane.rowIndex="2">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Georgia" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Godzina" GridPane.rowIndex="3">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Georgia" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <ChoiceBox fx:id="choice_rezerwacje_pracownik" prefHeight="31.0" prefWidth="187.0" GridPane.columnIndex="1" />
+                                    <ChoiceBox fx:id="choice_rezerwacje_zajecia" prefHeight="31.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <ChoiceBox fx:id="choice_rezerwacje_dzien" prefHeight="31.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <ChoiceBox fx:id="choice_rezerwacje_godzina" prefHeight="31.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label text="Max Ilosc Osob" GridPane.rowIndex="4">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Georgia" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="text_rezerwacje_ilosc" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                 </children>
+                              </GridPane>
+                              <Button fx:id="btn_rezerwacje_delete" layoutX="140.0" layoutY="230.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Usun rekord">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btn_rezerwacje_zapisz" layoutX="248.0" layoutY="230.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Zapisz">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btn_rezerwacje_update" layoutX="248.0" layoutY="278.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Aktualizuj">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="rezerwacje_tabelka" prefHeight="621.0" prefWidth="900.0">
+                                 <columns>
+                                    <TableColumn fx:id="table_rezerwacje_id" prefWidth="150.0" text="Id" />
+                                    <TableColumn fx:id="table_rezerwacje_nazwa" prefWidth="150.0" text="Nazwa zajec" />
+                                    <TableColumn fx:id="table_rezerwacje_trener" prefWidth="150.0" text="Trener" />
+                                    <TableColumn fx:id="table_rezerwacje_dzien" prefWidth="150.0" text="Dzien" />
+                                    <TableColumn fx:id="table_rezerwacje_godzina" prefWidth="150.0" text="Godzina" />
+                                    <TableColumn fx:id="table_rezerwacje_ilosc" prefWidth="150.0" text="Max ilosc osob" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                     </items>
+                  </SplitPane>
+               </content>
+            </Tab>
         </tabs>
       </TabPane>
    </children>

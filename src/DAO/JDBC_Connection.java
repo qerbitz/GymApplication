@@ -8,14 +8,11 @@ import java.sql.DriverManager;
 public class JDBC_Connection {
 
     public static Connection connection;
-    public static final String USER = "krzys";
-    public static final String PASSWORD = "krzys";
-    public static final String URL = "jdbc:postgresql://localhost:5432/Projektowa";
 
     public static void getConnection() throws ClassNotFoundException, SQLException {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver").newInstance();
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+           // connection = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (Exception e) {
             e.printStackTrace();
         }

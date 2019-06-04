@@ -21,6 +21,7 @@ import Models.Personel;
 import Models.Produkty;
 import Models.Rezerwacje_zajec;
 import Models.Zamowienia;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import java.net.URL;
 import java.sql.SQLException;
@@ -34,14 +35,20 @@ import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 /**
@@ -430,6 +437,8 @@ public class BorderPaneController implements Initializable {
         } catch (ParseException ex) {
             Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
 
     }
 
@@ -472,7 +481,7 @@ public class BorderPaneController implements Initializable {
         btn_karnet_delete.setOnAction((ActionEvent event) -> {
             Karnety karnet = new Karnety();
             karnet = karnet_tabelka.getSelectionModel().getSelectedItem();
-
+            
             try {
                 KarnetyDAO.delete(karnet);
                 table_view_karnety();
@@ -579,6 +588,27 @@ public class BorderPaneController implements Initializable {
             } catch (SQLException ex) {
                 Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ParseException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
+        btn_rezerwacje_delete.setOnAction((ActionEvent event) -> {
+            Rezerwacje_zajec rezerwacja = new Rezerwacje_zajec();    
+            rezerwacja = rezerwacje_tabelka.getSelectionModel().getSelectedItem();
+            int pomoc = rezerwacja.getId_rezerwacji();
+            System.out.println(pomoc);
+            
+            FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/klienci.fxml"));
+		Parent application;
+	
+		Scene applicationScene = new Scene(application);
+		Stage primarystage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		primarystage.setScene(applicationScene);
+		primarystage.show();
+            try {
+                application = (Parent) loader.load();
+            } catch (IOException ex) {
                 Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
