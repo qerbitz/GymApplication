@@ -10,6 +10,7 @@ import DAO.CzlonkostwaDAO;
 import DAO.KarnetyDAO;
 import DAO.Kategorie_zajecDAO;
 import DAO.KlienciDAO;
+import DAO.Klient_ZajeciaDAO;
 import DAO.PersonelDAO;
 import DAO.Rezerwacje_zajecDAO;
 import Models.Adresy;
@@ -17,6 +18,7 @@ import Models.Czlonkostwa;
 import Models.Karnety;
 import Models.Kategorie_zajec;
 import Models.Klienci;
+import Models.Klient_Zajecia;
 import Models.Personel;
 import Models.Produkty;
 import Models.Rezerwacje_zajec;
@@ -32,6 +34,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -43,6 +46,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -371,6 +375,8 @@ public class BorderPaneController implements Initializable {
     @FXML
     private ChoiceBox<Personel> choice_rezerwacje_pracownik;
     @FXML
+    private ChoiceBox<Klienci> choice_rezerwacje_klient;
+    @FXML
     private ChoiceBox choice_rezerwacje_dzien;
     @FXML
     private ChoiceBox choice_rezerwacje_godzina;
@@ -401,21 +407,33 @@ public class BorderPaneController implements Initializable {
     @FXML
     private TableColumn<Rezerwacje_zajec, Integer> table_rezerwacje_ilosc;
 
+    @FXML
+    private Button btn_kz_zapisz;
+    @FXML
+    private Button btn_kz_delete;
+    @FXML
+    private TableView<Klient_Zajecia> kz_tabelka;
+    @FXML
+    private TableColumn<Klient_Zajecia, Integer> tab_idklienta = new TableColumn<>("pomoc");
+    @FXML  
+    private TableColumn<Klient_Zajecia, String> tab_imieklienta = new TableColumn<>("imie");
+    @FXML
+    private TableColumn<Klient_Zajecia, String> tab_nazwiskoklienta= new TableColumn<>("nazwisko");
+    
+
     private final Kategorie_zajecDAO catDAO = new Kategorie_zajecDAO();
     private final KlienciDAO klientDAO = new KlienciDAO();
     private final PersonelDAO personelDAO = new PersonelDAO();
     private final KarnetyDAO karnetDAO = new KarnetyDAO();
     private final CzlonkostwaDAO czlonkostwaDAO = new CzlonkostwaDAO();
     private final Rezerwacje_zajecDAO rezerwacjaDAO = new Rezerwacje_zajecDAO();
-
+    private final Klient_ZajeciaDAO kzDAO = new Klient_ZajeciaDAO();
     /**
      * Initializes the controller class.
      *
      * @param url
      * @param rb
      */
-    
-
     public void initialize(URL url, ResourceBundle rb) {
         try {
             // TODO
@@ -426,20 +444,20 @@ public class BorderPaneController implements Initializable {
             table_view_karnety();       //wyswietlanie table_view
             table_view_czlonkostwa();   //wyswietlanie table_view
             table_view_kategorie();
+            table_view_klient_zajecia();
             personel();
             klient();
             czlonkostwa();
             karnety();
             Kategorie_zajec();
             Rezerwacje_zajec();
+            Klient_Zajecia();
 
         } catch (SQLException ex) {
             Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
 
     }
 
@@ -482,7 +500,7 @@ public class BorderPaneController implements Initializable {
         btn_karnet_delete.setOnAction((ActionEvent event) -> {
             Karnety karnet = new Karnety();
             karnet = karnet_tabelka.getSelectionModel().getSelectedItem();
-            
+
             try {
                 KarnetyDAO.delete(karnet);
                 table_view_karnety();
@@ -594,16 +612,42 @@ public class BorderPaneController implements Initializable {
         });
         
         btn_rezerwacje_delete.setOnAction((ActionEvent event) -> {
-        
-            
-
-            
-            
+            Rezerwacje_zajec rezerwacja = new Rezerwacje_zajec();
+            rezerwacja = rezerwacje_tabelka.getSelectionModel().getSelectedItem();
+            int pomoc = rezerwacja.getId_rezerwacji();
+            try {
+                Rezerwacje_zajecDAO.delete(rezerwacja);
+                table_view_kategorie();
+                table_view_klient_zajecia();
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
-        
+    }
 
+    private void Klient_Zajecia() {
+            btn_kz_zapisz.setOnAction((ActionEvent event) -> {
 
-       
+            Rezerwacje_zajec rezerwacja = new Rezerwacje_zajec();
+            rezerwacja = rezerwacje_tabelka.getSelectionModel().getSelectedItem();
+            Klient_Zajecia kz = new Klient_Zajecia();
+            int pomoc = rezerwacja.getId_rezerwacji();
+
+            kz.setRezerwacja(rezerwacja);
+            kz.setKlient(choice_rezerwacje_klient.getValue());
+
+            try {
+                Klient_ZajeciaDAO.create(kz);
+                table_view_klient_zajecia();
+            } catch (SQLException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(BorderPaneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        });
     }
 
     private void czlonkostwa() {
@@ -1079,5 +1123,23 @@ public class BorderPaneController implements Initializable {
         table_rezerwacje_ilosc.setCellValueFactory(new PropertyValueFactory<>("ilosc"));
         rezerwacje_tabelka.setItems(FXCollections.observableList(rezerwacjaDAO.getAll()));
     }
+    private void table_view_klient_zajecia() throws SQLException, ParseException
+    {
+        choice_rezerwacje_klient.setConverter(new StringConverter<Klienci>() {
+            @Override
+            public Klienci fromString(String string) {
+                return null;
+            }
 
+            @Override
+            public String toString(Klienci object) {
+                return object.getImie() + " " + object.getNazwisko();
+            }
+        });
+        choice_rezerwacje_klient.setItems(FXCollections.observableArrayList(klientDAO.getAll()));
+        tab_idklienta.setCellValueFactory(new PropertyValueFactory<>("pomoc"));
+        tab_imieklienta.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getKlient().getImie()));
+        tab_nazwiskoklienta.setCellValueFactory(pomoc -> new SimpleStringProperty(pomoc.getValue().getKlient().getNazwisko()));
+        kz_tabelka.setItems(FXCollections.observableList(kzDAO.getAll()));
+    }
 }
